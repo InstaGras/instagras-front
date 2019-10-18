@@ -12,4 +12,8 @@ export class AuthService {
   register(value: any) {
     return new Observable();
   }
+
+  login(value: any) {
+    return new Observable();
+  }
 }
