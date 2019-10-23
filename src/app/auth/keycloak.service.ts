@@ -39,7 +39,17 @@ export class KeycloakService {
     getToken(): string {
         return this.keycloakAuth.token;
     }
-    getFullName(): string {
-        return this.keycloakAuth.tokenParsed.name;
+    getUserProfile(): any {
+         const  userProfile = {
+             username : this.keycloakAuth.idTokenParsed.preferred_username,
+             email : this.keycloakAuth.idTokenParsed.email,
+             name : this.keycloakAuth.idTokenParsed.name,
+             given_name : this.keycloakAuth.idTokenParsed.given_name,
+             family_name : this.keycloakAuth.idTokenParsed.family_name
+         };
+         return userProfile;
+    }
+    isAuthentificated(): boolean {
+        return this.keycloakAuth.authenticated;
     }
 }

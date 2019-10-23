@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuardService as AuthGuard } from '../auth/keycloak.authguard';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
+            canActivate: [AuthGuard],
             loadChildren: () =>
               import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
           }
@@ -20,14 +22,16 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: '/tabs/dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        canActivate: [AuthGuard]
       }
     ]
   },
   {
     path: '',
     redirectTo: '/tabs/dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   }
 ];
 

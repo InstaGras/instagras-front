@@ -2,6 +2,8 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { KeycloakService } from './auth/keycloak.service';
+import { AuthGuardService as AuthGuard } from './auth/keycloak.authguard';
+
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -22,6 +24,7 @@ export function kcFactory(keycloakService: KeycloakService) {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AuthGuard,
     KeycloakService,
     {
       provide: APP_INITIALIZER,

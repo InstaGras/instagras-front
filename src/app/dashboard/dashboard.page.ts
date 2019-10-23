@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { KeycloakService } from '../auth/keycloak.service';
+
 
 
 @Component({
@@ -7,12 +8,18 @@ import { KeycloakService } from '../auth/keycloak.service';
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss']
 })
-export class DashboardPage {
+export class DashboardPage implements OnInit {
 
+  userProfile: any;
   constructor(private keycloakService: KeycloakService) {}
 
   logout(): void {
     this.keycloakService.logout();
+  }
+
+  ngOnInit(): void {
+    this.userProfile = this.keycloakService.getUserProfile();
+    console.log(this.userProfile);
   }
 
 }
