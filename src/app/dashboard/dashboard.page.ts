@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { KeycloakService } from '../auth/keycloak.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +9,10 @@ import { Component } from '@angular/core';
 })
 export class DashboardPage {
 
-  constructor() {}
+  constructor(private keycloakService: KeycloakService) {}
+
+  logout(): void {
+    this.keycloakService.logout();
+  }
 
 }
