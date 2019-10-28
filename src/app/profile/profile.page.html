@@ -13,14 +13,17 @@
 <ion-content>
   <ion-card class="welcome-card">
     <ion-card-content>
-      <p>USER PROFILE</p>
+      <p>Username : {{userProfile.username}} | Email : {{userProfile.email}}</p>
     </ion-card-content>
   </ion-card>
-
-  <ion-card class="welcome-card">
-    <ion-card-content>
-      <ion-button color="danger" (click) ="logout()">Logout</ion-button>
-    </ion-card-content>
-  </ion-card>
-
+  <ion-grid>
+      <ion-row >
+        <ion-col col-4 class="grid_img" *ngFor="let i of images">
+          <img [src]="i.post_img" alt="">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
 </ion-content>
+<ion-button color="danger" (click) ="logout()">Logout</ion-button>
+

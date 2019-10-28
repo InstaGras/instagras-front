@@ -47,6 +47,9 @@ export class KeycloakService {
              given_name : this.keycloakAuth.idTokenParsed.given_name,
              family_name : this.keycloakAuth.idTokenParsed.family_name
          };
+         if(userProfile.email==null){
+            userProfile.email='Non renseigné';
+         }
          return userProfile;
     }
     isAuthentificated(): boolean {
