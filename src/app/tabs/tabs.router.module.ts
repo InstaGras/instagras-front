@@ -21,6 +21,23 @@ const routes: Routes = [
       },
       {
         path: '',
+        redirectTo: '/tabs/profile',
+        pathMatch: 'full',
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'profile',
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('../profile/profile.module').then(m => m.ProfilePageModule)
+          }
+        ]
+      },
+      {
+        path: '',
         redirectTo: '/tabs/dashboard',
         pathMatch: 'full',
         canActivate: [AuthGuard]
