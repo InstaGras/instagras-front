@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
+import { KeycloakService } from '../auth/keycloak.service';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss']
 })
-export class TabsPage {
+export class TabsPage  {
 
-  constructor() {}
+  constructor(private keycloakService: KeycloakService) {}
+
+  logout(): void {
+    this.keycloakService.logout();
+  }
 
 }

@@ -1,6 +1,23 @@
 <ion-tabs>
-
+    <ion-header>
+        <ion-toolbar>
+          <ion-grid>
+            <ion-row>
+              <ion-col> 
+                <ion-icon class="custom-burger-icon"></ion-icon> 
+              </ion-col>
+              <ion-col> 
+                <ion-title class="instagras-title">Instagras</ion-title> 
+              </ion-col>
+              <ion-col> 
+                  <ion-icon class="custom-logout-icon" (click) ="logout()"></ion-icon> 
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-toolbar>
+      </ion-header>
   <ion-tab-bar slot="bottom">
+
     
     <ion-tab-button tab="dashboard">
       <ion-icon name="apps"></ion-icon>

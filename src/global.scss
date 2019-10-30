@@ -24,3 +24,31 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-icon {
+    &[class*="custom-"] {
+       mask-size: contain   ;
+       mask-position: 50% 50%;
+       mask-repeat: no-repeat;
+       background: currentColor;
+       width: 1em;
+       height: 1em;
+       padding-left: 10%;
+       padding-top: 5%;
+    }
+    &[class*="custom-burger-icon"] {
+       mask-image: url(/assets/burger-icon.svg);
+    }
+    &[class*="custom-logout-icon"] {
+        mask-image: url(/assets/logout-icon.svg);
+        margin-left:70% !important;
+     }
+ }
+ ion-title {
+    &[class*="instagras-title"] {
+        margin-left:-92%;
+    }
+ }
+
+ 
+       

@@ -13,10 +13,6 @@ export class ProfilePage implements OnInit {
   userProfile: any;
   constructor(private keycloakService: KeycloakService) {}
 
-  logout(): void {
-    this.keycloakService.logout();
-  }
-
   ngOnInit(): void {
     this.userProfile = this.keycloakService.getUserProfile();
     console.log(this.userProfile);
