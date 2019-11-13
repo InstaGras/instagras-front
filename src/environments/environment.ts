@@ -8,7 +8,10 @@ export const environment = {
     url: 'http://works.wtf/auth',
     realm: 'instagras',
     clientId: 'instagras-front',
-  }
+  },
+  baseUserApiUrl:'http://works.wtf/userws/',
+  //baseUserApiUrl:'http://localhost:3000/userws/',
+  instagrasUrl:'http://localhost:8100'
 };
 
 /*

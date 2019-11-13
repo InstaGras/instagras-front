@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { KeycloakService } from '../auth/keycloak.service';
+import { UserdataService } from '../services/userdata.service';
 
 
 
@@ -11,11 +12,17 @@ import { KeycloakService } from '../auth/keycloak.service';
 export class DashboardPage implements OnInit {
 
   userProfile: any;
-  constructor(private keycloakService: KeycloakService) {}
+  constructor(private keycloakService: KeycloakService, private UserdataService : UserdataService) {}
 
   ngOnInit(): void {
     this.userProfile = this.keycloakService.getUserProfile();
+    this.UserdataService.createUser(this.userProfile.username);
     console.log(this.userProfile);
+  }
+
+  createAccount(username: string) : void {
+
+
   }
 
 }

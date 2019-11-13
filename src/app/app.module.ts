@@ -11,6 +11,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UserdataService } from './services/userdata.service';
+
 
 export function kcFactory(keycloakService: KeycloakService) {
   return () => keycloakService.init();
@@ -19,7 +22,12 @@ export function kcFactory(keycloakService: KeycloakService) {
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule,
+    HttpClientModule
+],
   providers: [
     StatusBar,
     SplashScreen,
@@ -31,7 +39,8 @@ export function kcFactory(keycloakService: KeycloakService) {
       useFactory: kcFactory,
       deps: [KeycloakService],
       multi: true
-    }
+    },
+    UserdataService
   ],
   bootstrap: [AppComponent]
 })
