@@ -1,7 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col> 
+          <ion-icon class="custom-burger-icon"></ion-icon> 
+        </ion-col>
+        <ion-col> 
+            <ion-icon class="custom-logout-icon" (click) ="this.logout()"></ion-icon> 
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-card class="welcome-card">
     <ion-card-content>
-      <p>Welcome {{userProfile.username}}</p>
+      <p>Welcome {{keycloakUserProfile.username}}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+

@@ -9,7 +9,7 @@ export const environment = {
     realm: 'instagras',
     clientId: 'instagras-front',
   },
-  baseUserApiUrl:'http://works.wtf/userws/',
+  baseUserApiUrl:'http://works.wtf/userws',
   //baseUserApiUrl:'http://localhost:3000/userws/',
   instagrasUrl:'http://localhost:8100'
 };

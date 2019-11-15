@@ -41,14 +41,73 @@ ion-icon {
     }
     &[class*="custom-logout-icon"] {
         mask-image: url(/assets/logout-icon.svg);
-        margin-left:70% !important;
+        margin-left:80% !important;
      }
  }
+ ion-button{
+    width:200px !important;
+ }
+ @media (max-width: 200px) {
+   ion-button{
+      width:100% !important;
+   }
+}
+ 
  ion-title {
     &[class*="instagras-title"] {
         margin-left:0%;
     }
  }
+ ion-text {
+   color: black !important;  
+   &[class*="center"] {
+      text-align:center;
+   }
+   &[class*="little"] {
+      font-size:80%;
+   }
+   &[class*="big"] {
+      font-size:100%;
+   }
+ }
+ .bold{
+   font-weight: bold;
+ }
+ ion-avatar  {     
+   width:80% !important;  
+   height:90% !important;   
+}
+
+//responsivity of image gallery
+
+.image-container {
+   min-height: 200px;
+   background-size: cover;
+}
+
+@media (min-width: 0px) {
+   .images {
+       column-count: 2;
+   }
+}
+
+@media (min-width: 420px) {
+   .images {
+       column-count: 3;
+   }
+}
+
+@media (min-width: 720px) {
+   .images {
+       column-count: 4;
+   }
+}
+
+.one-image {
+   margin: 2px;
+}
+
+
 
  
        

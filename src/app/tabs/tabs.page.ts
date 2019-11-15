@@ -10,8 +10,4 @@ export class TabsPage  {
 
   constructor(private keycloakService: KeycloakService) {}
 
-  logout(): void {
-    this.keycloakService.logout();
-  }
-
 }

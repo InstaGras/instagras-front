@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { User } from '../models/user';
+import { Observable, throwError } from 'rxjs';
+import { UserInterface } from '../interfaces/user';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -9,21 +12,26 @@ const httpOptions = {
     'Access-Control-Allow-Origin': '*'
   })
 };
+const usersBasePath = environment.baseUserApiUrl+'/users/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserdataService {
+
+  user: any = [];
   
   constructor(private httpClient : HttpClient) { }
 
   public createUser(username: string){
-    const user = {
-      username: username
-    };
-    this.httpClient.post(environment.baseUserApiUrl+'users/', user, httpOptions).subscribe(
+    const user:User  = new User(username,'','');
+    this.httpClient.post(usersBasePath,  JSON.stringify(user), httpOptions).subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
     );
  }
+  getUserByUsername(username): Observable<User>{
+    return this.httpClient
+    .get<User>(usersBasePath + username, httpOptions);
+  }
 }

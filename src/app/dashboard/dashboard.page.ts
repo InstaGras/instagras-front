@@ -11,18 +11,16 @@ import { UserdataService } from '../services/userdata.service';
 })
 export class DashboardPage implements OnInit {
 
-  userProfile: any;
+  keycloakUserProfile: any;
   constructor(private keycloakService: KeycloakService, private UserdataService : UserdataService) {}
 
   ngOnInit(): void {
-    this.userProfile = this.keycloakService.getUserProfile();
-    this.UserdataService.createUser(this.userProfile.username);
-    console.log(this.userProfile);
+    this.keycloakUserProfile = this.keycloakService.getUserProfile();
+    this.UserdataService.createUser(this.keycloakUserProfile.username);
   }
 
-  createAccount(username: string) : void {
-
-
+  logout(): void {
+    this.keycloakService.logout();
   }
 
 }
