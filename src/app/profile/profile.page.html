@@ -6,12 +6,12 @@
           <ion-text>{{keycloakUserProfile.username}}</ion-text>
         </ion-col>
         <ion-col> 
-            <ion-icon class="custom-logout-icon" (click) ="this.logout()"></ion-icon> 
+            <ion-img src="/assets/logout-icon.svg" class="profile-logout-icon" (click) ="this.logout()"></ion-img> 
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col> 
-            <ion-avatar>
+            <ion-avatar class="profile">
               <img src="/assets/profile-photo.jpg">
           </ion-avatar>
         </ion-col>
@@ -26,7 +26,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-text class="little bold" style="padding-left:2%">Enki Michel</ion-text>
+        <ion-text class="little bold" style="margin-left:2%">{{userIdentity}}</ion-text>
       </ion-row>
     </ion-grid>
   </ion-toolbar>

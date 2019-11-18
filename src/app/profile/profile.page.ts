@@ -3,8 +3,6 @@ import { KeycloakService } from '../auth/keycloak.service';
 import { Router } from '@angular/router';
 import { UserdataService } from '../services/userdata.service';
 import { User } from '../models/user';
-import { Observable } from 'rxjs';
-import { UserInterface } from '../interfaces/user';
 import { NavController } from '@ionic/angular';
 
 
@@ -19,7 +17,6 @@ export class ProfilePage implements OnInit {
   keycloakUserProfile: any;
   user: User;
   userIdentity: string;
-  galleryType = 'regular';
 
   constructor(private keycloakService: KeycloakService, private router: Router, private UserDataService: UserdataService, public navCtrl: NavController) {}
 
@@ -40,8 +37,9 @@ export class ProfilePage implements OnInit {
   initUser() {
     this.UserDataService.getUserByUsername(this.keycloakUserProfile.username)
     .subscribe(user => {
-      this.user=user;
-      console.log(user);
+      this.user=user.data.users[0];
+      this.initUserIdentity();
+      console.log(this.user);
     },
     error=>{
       console.log(error);
@@ -49,19 +47,23 @@ export class ProfilePage implements OnInit {
   }
 
   initUserIdentity() {
+    console.log("test1")
+    console.log(this.user)
     if (this.user != undefined){
-      let userIdentity = 'User identity unknown';
-      if(this.user.lastname != null && this.user.firstname != null){
+      console.log("test2")
+      let userIdentity = 'Identité non saisie';
+      if(this.user.lastname != "" && this.user.firstname != ""){
         userIdentity = this.titleCaseWord(this.user.firstname) + ' ' + this.user.lastname.toLowerCase;
       }
-      else if(this.user.lastname == null && this.user.firstname != null){
+      else if(this.user.lastname == "" && this.user.firstname != ""){
         userIdentity = this.titleCaseWord(this.user.firstname) ;
       }
-      else if(this.user.lastname != null && this.user.firstname == null){
+      else if(this.user.lastname != "" && this.user.firstname == ""){
         userIdentity = this.titleCaseWord(this.user.lastname);
       }
       this.userIdentity=userIdentity;
     }
+    console.log("user identity: "+this.userIdentity);
   }
   logout(): void {
     this.keycloakService.logout();

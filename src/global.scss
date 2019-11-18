@@ -25,24 +25,30 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-ion-icon {
-    &[class*="custom-"] {
-       mask-size: contain   ;
-       mask-position: 50% 50%;
-       mask-repeat: no-repeat;
-       background: currentColor;
-       width: 1em;
-       height: 1em;
-       padding-left: 10%;
-       padding-top: 5%;
-    }
-    &[class*="custom-burger-icon"] {
-       mask-image: url(/assets/burger-icon.svg);
-    }
-    &[class*="custom-logout-icon"] {
-        mask-image: url(/assets/logout-icon.svg);
-        margin-left:80% !important;
-     }
+ ion-img{
+  
+   &[class*="profile-logout-icon"] {
+      margin-left:90% !important;
+      width: 25px;
+      height: 25px;
+   }
+   &[class*="dashboard-logout-icon"] {
+      margin-left:85% !important;
+      width: 25px;
+      height: 25px;
+   }
+   &[class*="instagras-logo"] {
+      margin-right:20% !important;
+      margin-top:2% !important;
+      width: 25px !important;
+      height: 25px !important;
+   }
+   &[class*="instagras-text"] {
+      margin-left:-80% !important;
+      margin-top:-8% !important;
+      width: 75px !important;
+      height: 50px !important;
+   }
  }
  ion-button{
     width:200px !important;
@@ -74,8 +80,14 @@ ion-icon {
    font-weight: bold;
  }
  ion-avatar  {     
-   width:80% !important;  
-   height:90% !important;   
+   &[class*="profile"] {
+      width:80% !important;  
+      height:90% !important; 
+   }  
+   &[class*="dashboard"] {
+      width:10% !important;  
+      height:10% !important; 
+   }  
 }
 
 //responsivity of image gallery

@@ -30,8 +30,8 @@ export class UserdataService {
       (error) => console.log(error)
     );
  }
-  getUserByUsername(username): Observable<User>{
+  getUserByUsername(username): Observable<Response>{
     return this.httpClient
-    .get<User>(usersBasePath + username, httpOptions);
+    .get<Response>(usersBasePath + username, httpOptions);
   }
 }
