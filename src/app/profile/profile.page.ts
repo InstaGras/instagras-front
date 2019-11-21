@@ -54,7 +54,7 @@ export class ProfilePage implements OnInit {
     if (this.user != undefined){
       let userIdentity = 'Identité non saisie';
       if(this.user.lastname != "" && this.user.firstname != ""){
-        userIdentity = this.titleCaseWord(this.user.firstname) + ' ' + this.user.lastname.toLowerCase;
+        userIdentity = this.titleCaseWord(this.user.firstname) + ' ' + this.user.lastname.toUpperCase();
       }
       else if(this.user.lastname == "" && this.user.firstname != ""){
         userIdentity = this.titleCaseWord(this.user.firstname) ;
