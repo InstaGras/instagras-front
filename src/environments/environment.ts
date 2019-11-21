@@ -10,7 +10,7 @@ export const environment = {
     clientId: 'instagras-front',
   },
   baseUserApiUrl:'http://works.wtf/userws',
-  //baseUserApiUrl:'http://localhost:3000/userws/',
+  //baseUserApiUrl:'http://localhost:3000/userws',
   instagrasUrl:'http://localhost:8100'
 };
 

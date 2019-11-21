@@ -17,6 +17,8 @@ export class ProfilePage implements OnInit {
   keycloakUserProfile: any;
   user: User;
   userIdentity: string;
+  nbFollowers: string;
+  nbFollowed: string;
 
   constructor(private keycloakService: KeycloakService, private router: Router, private UserDataService: UserdataService, public navCtrl: NavController) {}
 
@@ -39,6 +41,8 @@ export class ProfilePage implements OnInit {
     .subscribe(user => {
       this.user=user.data.users[0];
       this.initUserIdentity();
+      this.nbFollowed=this.user.nbFollowed;
+      this.nbFollowers=this.user.nbFollowers;
       console.log(this.user);
     },
     error=>{
@@ -47,10 +51,7 @@ export class ProfilePage implements OnInit {
   }
 
   initUserIdentity() {
-    console.log("test1")
-    console.log(this.user)
     if (this.user != undefined){
-      console.log("test2")
       let userIdentity = 'Identité non saisie';
       if(this.user.lastname != "" && this.user.firstname != ""){
         userIdentity = this.titleCaseWord(this.user.firstname) + ' ' + this.user.lastname.toLowerCase;
@@ -63,7 +64,6 @@ export class ProfilePage implements OnInit {
       }
       this.userIdentity=userIdentity;
     }
-    console.log("user identity: "+this.userIdentity);
   }
   logout(): void {
     this.keycloakService.logout();
