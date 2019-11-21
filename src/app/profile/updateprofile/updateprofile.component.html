@@ -10,3 +10,21 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-card>
+  <form [formGroup]="modifyMyProfile" (ngSubmit)="submitMyProfile()">
+    <ion-item>
+      <ion-icon name="planet" slot="start"></ion-icon>
+      <ion-label>Modifier le profil</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label formControlName="firstname" position="floating">Prénom</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label formControlName="lastname" position="floating">Nom</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-button expand="block" (click)="submitMyProfile">Valider</ion-button>
+  </form>
+</ion-card>
+  

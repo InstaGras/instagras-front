@@ -30,8 +30,13 @@ export class UserdataService {
       (error) => console.log(error)
     );
  }
-  getUserByUsername(username): Observable<Response>{
+  getUserByUsername(username): Observable<any>{
     return this.httpClient
-    .get<Response>(usersBasePath + username, httpOptions);
+    .get<any>(usersBasePath + username, httpOptions);
+  }
+
+  public updateUserInfo(username, user): Observable<any>{
+    return this.httpClient
+    .put<any>(usersBasePath + username, user, httpOptions)
   }
 }

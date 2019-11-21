@@ -36,8 +36,8 @@ export class ProfilePage implements OnInit {
 
   initUser() {
     this.UserDataService.getUserByUsername(this.keycloakUserProfile.username)
-    .subscribe(user => {
-      this.user=user.data.users[0];
+    .subscribe(success => {
+      this.user = success.data.users[0];
       this.initUserIdentity();
       console.log(this.user);
     },
@@ -52,13 +52,13 @@ export class ProfilePage implements OnInit {
     if (this.user != undefined){
       console.log("test2")
       let userIdentity = 'Identité non saisie';
-      if(this.user.lastname != "" && this.user.firstname != ""){
+      if (this.user.lastname != "" && this.user.firstname != ""){
         userIdentity = this.titleCaseWord(this.user.firstname) + ' ' + this.user.lastname.toLowerCase;
       }
-      else if(this.user.lastname == "" && this.user.firstname != ""){
+      else if (this.user.lastname == "" && this.user.firstname != ""){
         userIdentity = this.titleCaseWord(this.user.firstname) ;
       }
-      else if(this.user.lastname != "" && this.user.firstname == ""){
+      else if (this.user.lastname != "" && this.user.firstname == ""){
         userIdentity = this.titleCaseWord(this.user.lastname);
       }
       this.userIdentity=userIdentity;
