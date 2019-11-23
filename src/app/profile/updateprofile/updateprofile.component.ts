@@ -12,6 +12,10 @@ export class UpdateprofileComponent implements OnInit {
 
   userProfile: any;
   modifyMyProfile: FormGroup;
+  firstname = '';
+  lastname = '';
+
+  update = {};
 
   constructor(
     private keycloakService: KeycloakService, 
@@ -19,13 +23,14 @@ export class UpdateprofileComponent implements OnInit {
     public formBuilder: FormBuilder
     ) { }
 
+    
   ngOnInit() {
     this.userProfile = this.keycloakService.getUserProfile();
   }
 
-
   submitMyProfile() {
-    console.log(this.userProfile.username);
+    console.log(this.update);
+    this.userdataService.updateUserInfo(this.userProfile.username,this.update)
    // this.userdataService.updateUserInfo('user', 'oui');
   }
 
