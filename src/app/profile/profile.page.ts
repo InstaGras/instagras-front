@@ -30,6 +30,10 @@ export class ProfilePage implements OnInit {
     this.initUser();
   }
 
+  openAccountPage(): void {
+    this.router.navigate(['account-options']);
+  }
+
   openUpdateProfilePage(): void {
     this.router.navigate(['tabs/profile/updateprofile']);
   }
