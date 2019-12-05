@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openProfile()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Modifier le profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile(updateProfileForm)">
+    <ion-item>
+      <ion-label position="floating">Prénom</ion-label>
+      <ion-input type="text" formControlName="firstname"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of updateProfileFormValidationMessages.firstname">
+        <div class="error-message" *ngIf="updateProfileForm.get('firstname').hasError(validation.type) && (updateProfileForm.get('firstname').dirty || updateProfileForm.get('firstname').touched)">
+          <ion-icon name="alert" color="danger"></ion-icon>
+          <ion-text class="little" color="danger">
+            {{ validation.message }}
+          </ion-text> 
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input type="text" formControlName="lastname" class="form-controll"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" [disabled]="!updateProfileForm.valid" type="submit">Valider</ion-button>
+  </form>
+</ion-content>

@@ -16,6 +16,6 @@ export class AccountPage implements OnInit {
   }
 
   updateProfile() {
-    this.router.navigate(['tabs/profile/updateprofile']);
+    this.router.navigate(['account-options/update-profile']);
   }
 }

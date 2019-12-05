@@ -1,0 +1,17 @@
+form {
+    padding: 10px;
+}
+
+.error-message {
+    margin-top: 8px;
+    display: flex;
+}
+
+.error-message ion-icon {
+    margin: 0px 10px 0px 15px;
+    flex: 0 0 20px;
+}
+
+form ion-button[type="submit"] {
+    margin-top: 15px;
+}

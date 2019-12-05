@@ -36,7 +36,6 @@ export class UserdataService {
   }
 
   public updateUserInfo(username, user): Observable<any>{
-    return this.httpClient
-    .put<any>(usersBasePath + username, user, httpOptions)
+    return this.httpClient.put<any>(usersBasePath + username, user, httpOptions);
   }
 }
