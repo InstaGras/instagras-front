@@ -17,6 +17,8 @@ export class ProfilePage implements OnInit {
   keycloakUserProfile: any;
   user: User;
   userIdentity: string;
+  nbFollowers: string;
+  nbFollowed: string;
 
   constructor(
     private keycloakService: KeycloakService,
@@ -43,6 +45,9 @@ export class ProfilePage implements OnInit {
     .subscribe(success => {
       this.user = success.data.users[0];
       this.initUserIdentity();
+      this.nbFollowed=this.user.nbFollowed;
+      this.nbFollowers=this.user.nbFollowers;
+      console.log(this.user);
     },
     error => {
       console.log(error);
