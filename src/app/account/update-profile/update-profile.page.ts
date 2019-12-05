@@ -73,10 +73,11 @@ export class UpdateProfilePage implements OnInit {
       .subscribe(arg => {
         console.log(arg);
         loading.dismiss();
+        this.presentSuccesToast();
       }, err => {
         console.log(err);
         loading.dismiss();
-        this.presentToast();
+        this.presentErrorToast();
       });
     }
   }
@@ -90,7 +91,7 @@ export class UpdateProfilePage implements OnInit {
     this.router.navigate(['tabs/profile']);
   }
 
-  async presentToast() {
+  async presentErrorToast() {
     const toast = await this.toastController.create({
       message: 'Une erreur est survenue lors de la mise à jour de votre profile.',
       duration: 5000,
@@ -99,7 +100,23 @@ export class UpdateProfilePage implements OnInit {
           text: 'OK',
           role: 'cancel'
         }
-      ]
+      ],
+      color: "danger"
+    });
+    toast.present();
+  }
+
+  async presentSuccesToast() {
+    const toast = await this.toastController.create({
+      message: 'Vos données ont été mises à jour avec succès.',
+      duration: 5000,
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel'
+        }
+      ],
+      color: "success"
     });
     toast.present();
   }
