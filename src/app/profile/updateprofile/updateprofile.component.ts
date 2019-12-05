@@ -20,7 +20,7 @@ export class UpdateprofileComponent implements OnInit {
   constructor(
     private keycloakService: KeycloakService, 
     private userdataService: UserdataService,
-    public formBuilder: FormBuilder
+    private formBuilder: FormBuilder
     ) { }
 
     

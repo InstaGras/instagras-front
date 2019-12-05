@@ -14,7 +14,13 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserdataService } from './services/userdata.service';
 
+import { Camera } from '@ionic-native/Camera/ngx';
+import { File } from '@ionic-native/File/ngx';
+import { WebView} from '@ionic-native/ionic-webview/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
+import { IonicStorageModule } from '@ionic/storage'
+ 
 export function kcFactory(keycloakService: KeycloakService) {
   return () => keycloakService.init();
 }
@@ -26,12 +32,17 @@ export function kcFactory(keycloakService: KeycloakService) {
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
 ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Camera,
+    File,
+    WebView,
+    FilePath,
     AuthGuard,
     KeycloakService,
     {

@@ -20,6 +20,17 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'publication',
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('../publication/publication.module').then(m => m.PublicationPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/profile',
         pathMatch: 'full',
