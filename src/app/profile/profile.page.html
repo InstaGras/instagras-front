@@ -1,44 +1,60 @@
 <ion-header>
   <ion-toolbar>
-    <ion-grid>
-      <ion-row>
-        <ion-col> 
-          <ion-text>{{keycloakUserProfile.username}}</ion-text>
-        </ion-col>
-        <ion-col> 
-            <ion-img src="/assets/logout-icon.svg" class="profile-logout-icon" (click) ="this.logout()"></ion-img> 
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col> 
-            <ion-avatar class="profile">
-              <img src="/assets/profile-photo.jpg">
-          </ion-avatar>
-        </ion-col>
-        <ion-col style="padding-top: 8%;"> 
-            <ion-text class="center little"> <div class="bold">0</div> <p> Publications </p> </ion-text>
-        </ion-col>  
-        <ion-col style="padding-top: 8%;"> 
-          <ion-text class="center little"> <div class="bold">{{nbFollowers}}</div> <p> Abonnés </ion-text> 
-        </ion-col>
-       <ion-col style="padding-top: 8%;"> 
-          <ion-text class="center little"> <div class="bold">{{nbFollowed}}</div> <p> Abonnements </ion-text> 
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-text class="little bold" style="margin-left:2%">{{userIdentity}}</ion-text>
-      </ion-row>
-    </ion-grid>
+    <ion-buttons slot="start">
+      <ion-button (click)="openAccountPage()">
+        <ion-icon slot="icon-only" name="cog"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+          
+    <ion-title text-center>{{keycloakUserProfile.username}}</ion-title>
+
+    <!--<ion-buttons slot="end">
+        <ion-button>
+          <ion-icon slot="icon-only" name="person-add"></ion-icon>
+        </ion-button>
+      </ion-buttons>-->
   </ion-toolbar>
 </ion-header>
-<div style="text-align: center;">
-  <ion-button color="light" (click) ="openUpdateProfilePage()"><ion-text class="big">Modifier le profil</ion-text></ion-button>
-</div>
-<ion-content padding>
-  <div class="images">
-    <div class="one-image" *ngFor="let image of [1,2,3,4,5,6,7,8,9,10,11]">
-      <img src="assets/{{image}}.jpg">
-    </div>
+<ion-content>
+  <div class="profile-container">
+      <div class="profile-header">
+          <ion-avatar slot="start">
+            <img src="/assets/profile-photo.jpg">
+          </ion-avatar>
+          <div class="profile-text-content">
+            <h1>
+                {{keycloakUserProfile.username}}
+            </h1>
+            <ion-button color="light" (click) ="openUpdateProfilePage()" fill="outline" color="medium">Modifier le profil</ion-button>
+          </div>
+        </div>
+        <div class="profile-bio">
+          <b>{{keycloakUserProfile.username}}</b>
+          {{userIdentity}}
+        </div>
+        <ul>
+            <li>
+              <ion-text class="center little">
+                <span>0</span>
+                Publications
+              </ion-text>
+            </li>
+            <li>
+              <ion-text class="center little">
+                <span>0</span>
+                Publications
+              </ion-text>
+            </li>
+            <li>
+              <ion-text class="center little">
+                <span>0</span>
+                Publications
+              </ion-text>
+            </li>
+        </ul>
+          <div class="profile-medias">
+              <img class="profile-media" *ngFor="let media of [1,2,3,4,5,6,7,8,9,10,11]" src="assets/{{media}}.jpg">
+        </div>
   </div>
 </ion-content>
 

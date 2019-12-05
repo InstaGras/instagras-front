@@ -20,51 +20,51 @@ export class ProfilePage implements OnInit {
   nbFollowers: string;
   nbFollowed: string;
 
-  constructor(private keycloakService: KeycloakService, private router: Router, private UserDataService: UserdataService, public navCtrl: NavController) {}
+  constructor(
+    private keycloakService: KeycloakService,
+    private router: Router,
+    private UserDataService: UserdataService,
+    public navCtrl: NavController,
+  ) {}
 
   ngOnInit(): void {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
     this.initUser();
   }
 
-  openUpdateProfilePage(): void {
-    this.router.navigate(['tabs/profile/updateprofile']);
+  openAccountPage(): void {
+    this.router.navigate(['account-options']);
   }
 
-  titleCaseWord(word: string): string {
-    if (!word) return word;
-    return word[0].toUpperCase() + word.substr(1).toLowerCase();
+  openUpdateProfilePage(): void {
+    this.router.navigate(['account-options/update-profile']);
   }
 
   initUser() {
     this.UserDataService.getUserByUsername(this.keycloakUserProfile.username)
-    .subscribe(user => {
-      this.user=user.data.users[0];
+    .subscribe(success => {
+      this.user = success.data.users[0];
       this.initUserIdentity();
       this.nbFollowed=this.user.nbFollowed;
       this.nbFollowers=this.user.nbFollowers;
       console.log(this.user);
     },
-    error=>{
+    error => {
       console.log(error);
     });
   }
 
   initUserIdentity() {
-    if (this.user != undefined){
-      let userIdentity = 'Identité non saisie';
-      if(this.user.lastname != "" && this.user.firstname != ""){
-        userIdentity = this.titleCaseWord(this.user.firstname) + ' ' + this.user.lastname.toUpperCase();
-      }
-      else if(this.user.lastname == "" && this.user.firstname != ""){
-        userIdentity = this.titleCaseWord(this.user.firstname) ;
-      }
-      else if(this.user.lastname != "" && this.user.firstname == ""){
-        userIdentity = this.titleCaseWord(this.user.lastname);
-      }
-      this.userIdentity=userIdentity;
+    if (this.user) {
+      const userIdentity = (
+        ((this.user.firstname) ? this.user.firstname : '')
+        + ' '
+        + ((this.user.lastname) ? this.user.lastname : '')
+      ).toLowerCase().trim();
+      this.userIdentity = (userIdentity) ? userIdentity[0].toUpperCase() + userIdentity.slice(1) : 'Identité non saisie';
     }
   }
+
   logout(): void {
     this.keycloakService.logout();
   }

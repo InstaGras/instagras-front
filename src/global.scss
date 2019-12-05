@@ -50,14 +50,14 @@
       height: 50px !important;
    }
  }
- ion-button{
+/* ion-button{
     width:200px !important;
  }
  @media (max-width: 200px) {
    ion-button{
       width:100% !important;
    }
-}
+}*/
  
  ion-title {
     &[class*="instagras-title"] {
@@ -65,7 +65,6 @@
     }
  }
  ion-text {
-   color: black !important;  
    &[class*="center"] {
       text-align:center;
    }
@@ -114,10 +113,6 @@
    .images {
        column-count: 4;
    }
-}
-
-.one-image {
-   margin: 2px;
 }
 
 

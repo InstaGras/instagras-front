@@ -33,12 +33,6 @@ const routes: Routes = [
             canActivate: [AuthGuard],
             loadChildren: () =>
               import('../profile/profile.module').then(m => m.ProfilePageModule)
-          },
-          {
-            path: 'updateprofile',
-            canActivate: [AuthGuard],
-            loadChildren: () =>
-              import('../profile/updateprofile/updateprofile.module').then(m => m.UpdateprofilePageModule)
           }
         ]
       },
