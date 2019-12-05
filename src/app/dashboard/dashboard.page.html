@@ -15,24 +15,35 @@
   </ion-header>
   
   <ion-content>
-      <div class = "publication" *ngFor="let image of [1,2,3,4,5,6,7,8,9,10,11]">
-      <ion-grid>
-        <ion-row>
-          <ion-col> 
-            <ion-avatar class ="dashboard">
-              <img src="/assets/profile-photo.jpg">
-            </ion-avatar>
-          </ion-col>
-          <ion-col> 
-            <ion-text class="little bold"  style="margin-left: -55%; margin-top: 10%">{{keycloakUserProfile.username}}</ion-text>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <div style="margin-left: auto; margin-right: auto;" >
-            <img src="assets/profile-photo.jpg">
-          </div>
-        </ion-row>
-      </ion-grid>
+    <div class="feed-container">
+      <div class="post" *ngFor="let image of [1,2,3,4,5,6,7,8,9,10,11]">
+        <div class="post-header">
+            <ion-avatar>
+                <img src="/assets/profile-photo.jpg" />
+              </ion-avatar>
+              <ion-text class="post-header-username">
+                <h1>{{keycloakUserProfile.username}}</h1>
+              </ion-text>
+        </div>
+        <img class="post-content" src="assets/profile-photo.jpg">
+        <ion-buttons slot="start">
+            <ion-button>
+              <ion-icon slot="icon-only" name="heart-empty" color="dark"></ion-icon>
+            </ion-button>
+            <ion-button>
+              <ion-icon slot="icon-only" name="text" color="dark"></ion-icon>
+            </ion-button>
+            <ion-button>
+              <ion-icon slot="icon-only" name="paper-plane" color="dark"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+          <small class="post-like-text">
+              Aimé par users
+          </small>
+            <p class="post-description">
+              Superbe et sublime description
+            </p>
+      </div>
     </div>
   </ion-content>
   
