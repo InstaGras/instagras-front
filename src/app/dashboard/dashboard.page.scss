@@ -18,9 +18,6 @@
 .post .post-header .post-header-username {
     flex: 1 1 30px;
     align-self: center;
-}
-
-.post .post-header .post-header-username h1 {
     margin: unset;
 }
 
@@ -30,4 +27,8 @@
 
 .post-like-text, .post-description {
     margin-left: 10px;
+}
+
+.post-description, .post-header-username, .post .post-header ion-avatar, .post .post-content {
+    cursor: pointer;
 }

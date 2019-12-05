@@ -29,4 +29,12 @@ export class DashboardPage implements OnInit {
     this.keycloakService.logout();
   }
 
+  openProfile(uidUser: number) {
+    console.log('try open the profile number ' + uidUser);
+  }
+
+  openPost(uidPost: number) {
+    console.log('try open the post number ' + uidPost);
+  }
+
 }
