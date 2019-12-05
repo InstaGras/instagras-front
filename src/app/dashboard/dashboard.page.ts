@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { KeycloakService } from '../auth/keycloak.service';
 import { UserdataService } from '../services/userdata.service';
 import { IonContent } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 
@@ -14,7 +15,11 @@ export class DashboardPage implements OnInit {
   @ViewChild(IonContent, { static: false }) ionContent: IonContent;
 
   keycloakUserProfile: any;
-  constructor(private keycloakService: KeycloakService, private UserdataService : UserdataService) {}
+  constructor(
+    private keycloakService: KeycloakService,
+    private UserdataService : UserdataService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
@@ -31,6 +36,7 @@ export class DashboardPage implements OnInit {
 
   openProfile(uidUser: number) {
     console.log('try open the profile number ' + uidUser);
+    this.router.navigate(['users/' + uidUser]);
   }
 
   openPost(uidPost: number) {
