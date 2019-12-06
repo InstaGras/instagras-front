@@ -8,6 +8,28 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UsersPage implements OnInit {
   id: number = null;
+  user = {
+    username: 'enki',
+    firstname: 'Enki',
+    lastname: 'Michel',
+    firstFollowers: [
+      'Alban',
+      'Maxime',
+      'Théo'
+    ],
+    countFollowers: 4,
+    countPublications: 10,
+    countSubscriptions: 3,
+    bio: 'Je suis Enki',
+    getUserIdentity() {
+      return (
+        ((this.firstname) ? this.firstname : '')
+        + ' '
+        + ((this.lastname) ? this.lastname : '')
+      ).trim();
+    }
+  };
+
   constructor(
     private activatedRoute: ActivatedRoute
   ) { }
