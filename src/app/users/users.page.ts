@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { MoreComponent } from './more/more.component';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +23,7 @@ export class UsersPage implements OnInit {
     countPublications: 10,
     countSubscriptions: 3,
     bio: 'Je suis Enki',
+    followed: false,
     getUserIdentity() {
       return (
         ((this.firstname) ? this.firstname : '')
@@ -31,12 +34,23 @@ export class UsersPage implements OnInit {
   };
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public popoverController: PopoverController
   ) { }
 
   ngOnInit() {
     this.id = +this.activatedRoute.snapshot.paramMap.get('id');
     console.log(this.id);
   }
+
+  async presentMorePopover(ev: any) {
+    const popover = await this.popoverController.create({
+        component: MoreComponent,
+        event: ev,
+        animated: true,
+        showBackdrop: true
+    });
+    return await popover.present();
+}
 
 }

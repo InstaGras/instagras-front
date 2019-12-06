@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UsersPage } from './users.page';
+import { MoreComponent } from './more/more.component';
+import { DomElementSchemaRegistry } from '@angular/compiler';
 
 const routes: Routes = [
   {
@@ -21,6 +23,12 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UsersPage]
+  declarations: [
+    UsersPage,
+    MoreComponent
+  ],
+  entryComponents: [
+    MoreComponent
+  ]
 })
 export class UsersPageModule {}

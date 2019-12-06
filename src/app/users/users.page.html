@@ -21,15 +21,27 @@
         <img src="/assets/profile-photo.jpg" />
       </ion-avatar>
       <div class="profile-text-content">
-        <h1>
-          {{user.username}}
-        </h1>
+        <div class="profile-name">
+          <h1>
+            {{user.username}}
+          </h1>
+          <ion-buttons (click)="presentMorePopover($event)">
+            <ion-button>
+              <ion-icon slot="icon-only" name="more" color="dark"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
         <ion-button
           color="light"
           fill="outline"
           color="medium"
+          *ngIf="user.followed"
           >Contacter</ion-button
         >
+        <ion-button (click)="subscribe()" *ngIf="!user.followed">
+          <ion-icon slot="end" name="pizza"></ion-icon>
+          Gras'bonnez-vous !
+        </ion-button>
       </div>
     </div>
     <div class="profile-bio">

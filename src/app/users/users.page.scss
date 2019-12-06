@@ -21,14 +21,20 @@
 .profile-header ion-avatar {
     margin-right: 30px;
     -webkit-flex: 0 0 auto;
-	flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
-.profile-text-content h1 {
+.profile-text-content .profile-name {
+    display: flex;
+    margin: -5px 0px 3px 3px;
+}
+
+.profile-text-content .profile-name h1 {
     overflow: hidden;
     overflow-wrap: initial;
     text-overflow: ellipsis;
-    margin: -5px 0px 3px 3px;
+    margin: 0px;
+    align-self: center;
 }
 
 .profile-header .profile-text-content {
