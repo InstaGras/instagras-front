@@ -35,6 +35,11 @@ export class UserdataService {
     .get<any>(usersBasePath + username, httpOptions);
   }
 
+  getAllUsers(): Observable<any>{
+    return this.httpClient
+    .get<any>(usersBasePath , httpOptions);
+  }
+
   public updateUserInfo(username, user): Observable<any>{
     return this.httpClient.put<any>(usersBasePath + username, user, httpOptions);
   }
