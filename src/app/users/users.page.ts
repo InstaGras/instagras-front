@@ -39,7 +39,7 @@ export class UsersPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.id = +this.activatedRoute.snapshot.paramMap.get('username');
     console.log(this.id);
   }
 
@@ -50,7 +50,21 @@ export class UsersPage implements OnInit {
         animated: true,
         showBackdrop: true
     });
+
+    popover.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        console.log(dataReturned);
+        if (dataReturned.data === 'unsubscribe') {
+          this.user.followed = false;
+        }
+      }
+    });
+
     return await popover.present();
 }
 
+  subscribe() {
+    console.log('subscribe to ' + this.user.username);
+    this.user.followed = true;
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-more',
@@ -9,18 +9,18 @@ import { PopoverController } from '@ionic/angular';
 export class MoreComponent implements OnInit {
 
   constructor(
-    public popoverController: PopoverController
+    public popoverController: PopoverController,
+    private events: Events
   ) { }
 
   ngOnInit() {}
 
   Unsubscribe() {
-    console.log('Unsubscribed');
-    this.close();
+    this.close('unsubscribe');
   }
 
-  close() {
-    this.popoverController.dismiss();
+  close(data?: string) {
+    this.popoverController.dismiss(data);
   }
 
 }

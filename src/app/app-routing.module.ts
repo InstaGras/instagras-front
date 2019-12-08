@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   { path: 'account-options', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'account-options/update-profile', loadChildren: './account/update-profile/update-profile.module#UpdateProfilePageModule' },
-  { path: 'users/:id', loadChildren: './users/users.module#UsersPageModule' }
+  { path: 'users/:username', loadChildren: './users/users.module#UsersPageModule' }
 
 
 
