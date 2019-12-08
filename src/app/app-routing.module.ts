@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'account-options', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'account-options/update-profile', loadChildren: './account/update-profile/update-profile.module#UpdateProfilePageModule' },
   { path: 'users/:username', loadChildren: './users/users.module#UsersPageModule' },
-  { path: 'search', loadChildren: './search/search.module#SearchPageModule' }
+  { path: 'search', loadChildren: './search/search.module#SearchPageModule' },  { path: 'publications', loadChildren: './publications/publications.module#PublicationsPageModule' }
+
 
 
 
