@@ -1,0 +1,16 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Searchbar</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <script src="assets/js/search.js"></script>
+  <div class = "user" *ngFor="let user of userList">
+      <ion-list>
+          <ion-item  (click) ="openProfilePage(user.username)">{{user.username}}</ion-item>
+      </ion-list>
+  </div>
+</ion-content>

@@ -8,6 +8,15 @@ const routes: Routes = [
   },
   { path: 'account-options', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'account-options/update-profile', loadChildren: './account/update-profile/update-profile.module#UpdateProfilePageModule' },
+  { path: 'search', loadChildren: './search/search.module#SearchPageModule' }
+
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  { path: 'account-options', loadChildren: './account/account.module#AccountPageModule' },
+  { path: 'account-options/update-profile', loadChildren: './account/update-profile/update-profile.module#UpdateProfilePageModule' },
   { path: 'users/:username', loadChildren: './users/users.module#UsersPageModule' }
 
 
