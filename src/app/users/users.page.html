@@ -3,14 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-
-    <ion-title text-center>{{user.username}}</ion-title>
-
-    <!--<ion-buttons slot="end">
-          <ion-button>
-            <ion-icon slot="icon-only" name="person-add"></ion-icon>
-          </ion-button>
-        </ion-buttons>-->
+    <ion-title text-center>{{username}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,7 +16,7 @@
       <div class="profile-text-content">
         <div class="profile-name">
           <h1>
-            {{user.username}}
+            {{username}}
           </h1>
           <ion-buttons (click)="presentMorePopover($event)">
             <ion-button>
@@ -35,10 +28,10 @@
           color="light"
           fill="outline"
           color="medium"
-          *ngIf="user.followed"
+          *ngIf="followed"
           >Contacter</ion-button
         >
-        <ion-button (click)="subscribe()" *ngIf="!user.followed">
+        <ion-button (click)="subscribe()" *ngIf="!followed">
           <span *ngIf="!subscribeSpin">
           <ion-icon slot="end" name="pizza"></ion-icon>
           Gras'bonnez-vous !
@@ -48,25 +41,25 @@
       </div>
     </div>
     <div class="profile-bio">
-      <b *ngIf="user.getUserIdentity()">{{user.getUserIdentity()}}</b>
-      <span *ngIf="user.bio">{{user.bio}}</span>
+      <b>{{userIdentity}}</b>
+      <span>Bio de {{username}}</span>
     </div>
     <ul>
       <li>
         <ion-text class="center little">
-          <span>{{user.countPublications}}</span>
+          <span>0</span>
           Publications
         </ion-text>
       </li>
       <li>
         <ion-text class="center little">
-            <span>{{user.countFollowers}}</span>
+            <span>{{nbFollowers}}</span>
           Abonnés
         </ion-text>
       </li>
       <li>
         <ion-text class="center little">
-            <span>{{user.countSubscriptions}}</span>
+            <span>{{nbFollowed}}</span>
           Abonnements
         </ion-text>
       </li>

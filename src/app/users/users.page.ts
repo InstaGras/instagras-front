@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MoreComponent } from './more/more.component';
+import { UserdataService } from '../services/userdata.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-users',
@@ -9,39 +11,37 @@ import { MoreComponent } from './more/more.component';
   styleUrls: ['./users.page.scss'],
 })
 export class UsersPage implements OnInit {
-  id: number = null;
-  user = {
-    username: 'enki',
-    firstname: 'Enki',
-    lastname: 'Michel',
-    firstFollowers: [
-      'Alban',
-      'Maxime',
-      'Théo'
-    ],
-    countFollowers: 4,
-    countPublications: 10,
-    countSubscriptions: 3,
-    bio: 'Je suis Enki',
-    followed: false,
-    getUserIdentity() {
-      return (
-        ((this.firstname) ? this.firstname : '')
-        + ' '
-        + ((this.lastname) ? this.lastname : '')
-      ).trim();
-    }
-  };
+  username: string = null;
+  user: User;
+  nbFollowers: string;
+  nbFollowed: string;
+  userIdentity: string;
   subscribeSpin = false;
+  followed=false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    public popoverController: PopoverController
+    public popoverController: PopoverController,
+    private UserDataService: UserdataService,
   ) { }
 
   ngOnInit() {
-    this.id = +this.activatedRoute.snapshot.paramMap.get('username');
-    console.log(this.id);
+    this.username = this.activatedRoute.snapshot.paramMap.get('username');
+    this.initUser();
+  }
+
+  initUser() {
+    this.UserDataService.getUserByUsername(this.username)
+    .subscribe(success => {
+      this.user = success.data.users[0];
+      this.initUserIdentity();
+      this.nbFollowed=this.user.nbFollowed;
+      this.nbFollowers=this.user.nbFollowers;
+      console.log(this.user);
+    },
+    error => {
+      console.log(error);
+    });
   }
 
   async presentMorePopover(ev: any) {
@@ -56,7 +56,7 @@ export class UsersPage implements OnInit {
       if (dataReturned !== null) {
         console.log(dataReturned);
         if (dataReturned.data === 'unsubscribe') {
-          this.user.followed = false;
+          this.followed = false;
         }
       }
     });
@@ -67,7 +67,18 @@ export class UsersPage implements OnInit {
   subscribe() {
     this.subscribeSpin = true;
     console.log('subscribe to ' + this.user.username);
-    this.user.followed = true;
+    this.followed = true;
     this.subscribeSpin = false;
+  }
+
+  initUserIdentity() {
+    if (this.user) {
+      const userIdentity = (
+        ((this.user.firstname) ? this.user.firstname : '')
+        + ' '
+        + ((this.user.lastname) ? this.user.lastname : '')
+      ).toLowerCase().trim();
+      this.userIdentity = (userIdentity) ? userIdentity[0].toUpperCase() + userIdentity.slice(1) : 'Identité non saisie';
+    }
   }
 }
