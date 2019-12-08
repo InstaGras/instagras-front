@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title text-center>{{username}}</ion-title>
+    <ion-title text-center>{{keycloakUserProfile.username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +19,7 @@
             {{username}}
           </h1>
           <ion-buttons (click)="presentMorePopover($event)">
-            <ion-button>
+            <ion-button *ngIf="isFollowed">
               <ion-icon slot="icon-only" name="more" color="dark"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -28,10 +28,10 @@
           color="light"
           fill="outline"
           color="medium"
-          *ngIf="followed"
+          *ngIf="isFollowed"
           >Contacter</ion-button
         >
-        <ion-button (click)="subscribe()" *ngIf="!followed">
+        <ion-button (click)="subscribe()" *ngIf="!isFollowed">
           <span *ngIf="!subscribeSpin">
           <ion-icon slot="end" name="pizza"></ion-icon>
           Gras'bonnez-vous !
