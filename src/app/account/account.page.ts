@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { KeycloakService } from '../auth/keycloak.service';
 
 @Component({
   selector: 'app-account',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 export class AccountPage implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private keycloakService: KeycloakService
   ) { }
 
   ngOnInit() {
@@ -17,5 +19,8 @@ export class AccountPage implements OnInit {
 
   updateProfile() {
     this.router.navigate(['account-options/update-profile']);
+  }
+  logout(){
+    this.keycloakService.logout();
   }
 }

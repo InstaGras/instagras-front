@@ -29,7 +29,6 @@
           </div>
         </div>
         <div class="profile-bio">
-          <b>{{keycloakUserProfile.username}}</b>
           {{userIdentity}}
         </div>
         <ul>
@@ -41,14 +40,14 @@
             </li>
             <li>
               <ion-text class="center little">
-                <span>0</span>
-                Publications
+                <span>{{nbFollowers}}</span>
+                Abonnés
               </ion-text>
             </li>
             <li>
               <ion-text class="center little">
-                <span>0</span>
-                Publications
+                <span>{{nbFollowed}}</span>
+                Abonnements
               </ion-text>
             </li>
         </ul>

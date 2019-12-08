@@ -9,6 +9,12 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: '',
+        redirectTo: '/tabs/profile',
+        pathMatch: 'full',
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'dashboard',
         children: [
           {
@@ -18,12 +24,6 @@ const routes: Routes = [
               import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
           }
         ]
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/profile',
-        pathMatch: 'full',
-        canActivate: [AuthGuard]
       },
       {
         path: 'profile',
@@ -37,10 +37,15 @@ const routes: Routes = [
         ]
       },
       {
-        path: '',
-        redirectTo: '/tabs/dashboard',
-        pathMatch: 'full',
-        canActivate: [AuthGuard]
+        path: 'search',
+        children: [
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('../search/search.module').then(m => m.SearchPageModule)
+          }
+        ]
       }
     ]
   },
