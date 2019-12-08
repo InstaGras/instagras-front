@@ -39,8 +39,11 @@
           >Contacter</ion-button
         >
         <ion-button (click)="subscribe()" *ngIf="!user.followed">
+          <span *ngIf="!subscribeSpin">
           <ion-icon slot="end" name="pizza"></ion-icon>
           Gras'bonnez-vous !
+          </span>
+          <ion-spinner *ngIf="subscribeSpin"></ion-spinner>
         </ion-button>
       </div>
     </div>

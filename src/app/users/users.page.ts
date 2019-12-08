@@ -32,6 +32,7 @@ export class UsersPage implements OnInit {
       ).trim();
     }
   };
+  subscribeSpin = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -64,7 +65,9 @@ export class UsersPage implements OnInit {
 }
 
   subscribe() {
+    this.subscribeSpin = true;
     console.log('subscribe to ' + this.user.username);
     this.user.followed = true;
+    this.subscribeSpin = false;
   }
 }
