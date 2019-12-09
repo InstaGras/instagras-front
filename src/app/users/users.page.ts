@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MoreComponent } from './more/more.component';
 import { UserdataService } from '../services/userdata.service';
@@ -17,9 +17,10 @@ export class UsersPage implements OnInit {
   nbFollowers: string;
   nbFollowed: string;
   userIdentity: string;
-  subscribeSpin = false;
-  isFollowed=false;
+  subscribeSpin: boolean;
+  isFollowed: boolean;
   keycloakUserProfile: any;
+  followersList: string[];
 
 
   constructor(
@@ -27,6 +28,7 @@ export class UsersPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public popoverController: PopoverController,
     private UserDataService: UserdataService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,6 @@ export class UsersPage implements OnInit {
       this.initUserIdentity();
       this.nbFollowed=this.user.nbFollowed;
       this.nbFollowers=this.user.nbFollowers;
-      console.log(this.user);
     },
     error => {
       console.log(error);
@@ -51,20 +52,22 @@ export class UsersPage implements OnInit {
   }
 
   initIsFollowed() {
-    this.UserDataService.isFollowed(this.username,this.keycloakUserProfile.username)
+    this.followersList=[];
+    this.UserDataService.getFollowersByUsername(this.activatedRoute.snapshot.paramMap.get('username'))
     .subscribe(success => {
-      if(success.success=true){
+      console.log(success);
+      success.data.followers.forEach(element => {
+        const follower_username = element.follower_username;
+        this.followersList.push(follower_username);
+      })
+      if(this.followersList.find(obj => obj === this.keycloakUserProfile.username )){
         this.isFollowed=true;
-        console.log(success.message);
-        console.log('this.username: '+this.username+',this.keycloakUserProfile.username: '+this.keycloakUserProfile.username);
       }else{
         this.isFollowed=false;
-        console.log(success.message);
-      }
-    },
-    error => {
+      };
+    },error => {
       console.log(error);
-    });
+    });  
   }
 
   async presentMorePopover(ev: any) {
@@ -85,20 +88,44 @@ export class UsersPage implements OnInit {
     });
 
     return await popover.present();
-}
+  }
 
   subscribe() {
-    this.UserDataService.createFollower(this.username,this.keycloakUserProfile.username);
+    this.subscribeSpin = true;
+    this.UserDataService.createFollower(this.username,this.keycloakUserProfile.username)
+    .subscribe(
+      (response) => {
+        console.log(response);
+        this.initUser();
+      },
+      (error) => console.log(error)
+    );
     this.isFollowed = true;
     this.subscribeSpin = false;
-    this.initUser();
   }
   unfollow() {
-    this.UserDataService.deleteFollower(this.username,this.keycloakUserProfile.username);
+    this.UserDataService.deleteFollower(this.username,this.keycloakUserProfile.username)
+    .subscribe(
+      (response) => {
+        console.log(response);
+        this.initUser();
+      },
+      (error) => console.log(error)
+    );
     this.isFollowed = false;
     this.initUser();
   }
 
+  openFollowersPage(username: string){
+    if(this.nbFollowers!="0"){
+      this.router.navigate(['followers/'+username]);
+    }
+  }
+  openFollowedPage(username: string){
+    if(this.nbFollowed!="0"){
+      this.router.navigate(['followed/'+username]);
+    }
+  }
 
   initUserIdentity() {
     if (this.user) {

@@ -25,7 +25,10 @@ export class ProfilePage implements OnInit {
     private router: Router,
     private UserDataService: UserdataService,
     public navCtrl: NavController,
-  ) {}
+  ) 
+  {
+    console.log('CONSTRUCTOR');
+  }
 
   ngOnInit(): void {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
@@ -47,7 +50,6 @@ export class ProfilePage implements OnInit {
       this.initUserIdentity();
       this.nbFollowed=this.user.nbFollowed;
       this.nbFollowers=this.user.nbFollowers;
-      console.log(this.user);
     },
     error => {
       console.log(error);
@@ -67,5 +69,16 @@ export class ProfilePage implements OnInit {
 
   logout(): void {
     this.keycloakService.logout();
+  }
+
+  openFollowersPage(username: string){
+    if(this.nbFollowers!="0"){
+      this.router.navigate(['followers/'+username]);
+    }
+  }
+  openFollowedPage(username: string){
+    if(this.nbFollowed!="0"){
+      this.router.navigate(['followed/'+username]);
+    }
   }
 }

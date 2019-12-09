@@ -32,7 +32,7 @@
           >Contacter</ion-button
         >
         <ion-button (click)="subscribe()" *ngIf="!isFollowed">
-          <span *ngIf="!subscribeSpin">
+          <span *ngIf="!isFollowed">
           <ion-icon slot="end" name="pizza"></ion-icon>
           Gras'bonnez-vous !
           </span>
@@ -52,13 +52,13 @@
         </ion-text>
       </li>
       <li>
-        <ion-text class="center little">
+        <ion-text class="center little" (click) ="openFollowersPage(username)">
             <span>{{nbFollowers}}</span>
           Abonnés
         </ion-text>
       </li>
       <li>
-        <ion-text class="center little">
+        <ion-text class="center little" (click) ="openFollowedPage(username)">
             <span>{{nbFollowed}}</span>
           Abonnements
         </ion-text>

@@ -15,6 +15,7 @@ export class DashboardPage implements OnInit {
   @ViewChild(IonContent, { static: false }) ionContent: IonContent;
 
   keycloakUserProfile: any;
+  publicationList: string[];
   constructor(
     private keycloakService: KeycloakService,
     private UserdataService : UserdataService,
@@ -24,6 +25,7 @@ export class DashboardPage implements OnInit {
   ngOnInit(): void {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
     this.UserdataService.createUser(this.keycloakUserProfile.username);
+    this.publicationList=[];
   }
 
   scrollToTop() {

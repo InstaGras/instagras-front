@@ -39,13 +39,13 @@
               </ion-text>
             </li>
             <li>
-              <ion-text class="center little">
+              <ion-text class="center little" (click) ="openFollowersPage(keycloakUserProfile.username)">
                 <span>{{nbFollowers}}</span>
                 Abonnés
               </ion-text>
             </li>
             <li>
-              <ion-text class="center little">
+              <ion-text class="center little" (click) ="openFollowedPage(keycloakUserProfile.username)">
                 <span>{{nbFollowed}}</span>
                 Abonnements
               </ion-text>

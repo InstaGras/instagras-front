@@ -14,6 +14,8 @@ const httpOptions = {
 };
 const usersBasePath = environment.baseUserApiUrl+'/users/';
 const followersBasePath = environment.baseUserApiUrl+'/followers/';
+const followedBasePath = environment.baseUserApiUrl+'/followed/';
+
 
 
 @Injectable({
@@ -32,36 +34,34 @@ export class UserdataService {
       (error) => console.log(error)
     );
  }
- public createFollower(followedUsername: string,followerUsername: string){
-  const follower = {
-    'follower_username':followerUsername,
-    'followed_username':followedUsername
-
-  }
-  this.httpClient.post(followersBasePath, follower, httpOptions).subscribe(
-    (response) => console.log(response),
-    (error) => console.log(error)
-  );
-}
-public deleteFollower(followedUsername: string,followerUsername: string){
+ public createFollower(followedUsername: string,followerUsername: string): Observable<any>{
   const follower = {
     'follower_username':followerUsername,
     'followed_username':followedUsername
   }
-  this.httpClient.request('delete', followersBasePath, { body: follower }).subscribe(
-    (response) => console.log(response),
-    (error) => console.log(error)
-  );
+  return this.httpClient.post<any>(followersBasePath, follower, httpOptions);
+ }
+  
+public deleteFollower(followedUsername: string,followerUsername: string): Observable<any>{
+  const follower = {
+    'follower_username':followerUsername,
+    'followed_username':followedUsername
+  }
+  return this.httpClient.request('delete', followersBasePath, { body: follower });
 }
   getUserByUsername(username): Observable<any>{
     return this.httpClient
     .get<any>(usersBasePath + username, httpOptions);
   }
 
-  isFollowed(followedUsername,followerUsername): Observable<any>{
-    const user:User  = new User(followerUsername,'','');
+  getFollowersByUsername(username): Observable<any>{
     return this.httpClient
-    .get<any>(usersBasePath + followedUsername+'/isFollowed', httpOptions);
+    .get<any>(followersBasePath + username, httpOptions);
+  }
+
+  getFollowedByUsername(username): Observable<any>{
+    return this.httpClient
+    .get<any>(followedBasePath + username, httpOptions);
   }
 
   getAllUsers(): Observable<any>{
