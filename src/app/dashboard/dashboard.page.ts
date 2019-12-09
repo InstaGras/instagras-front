@@ -3,13 +3,15 @@ import { KeycloakService } from '../auth/keycloak.service';
 import { UserdataService } from '../services/userdata.service';
 import { IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { PublicationsPage } from '../publications/publications.page';
 
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'dashboard.page.html',
-  styleUrls: ['dashboard.page.scss']
+  styleUrls: ['dashboard.page.scss'],
+  providers: [PublicationsPage]
 })
 export class DashboardPage implements OnInit {
   @ViewChild(IonContent, { static: false }) ionContent: IonContent;
@@ -18,7 +20,8 @@ export class DashboardPage implements OnInit {
   constructor(
     private keycloakService: KeycloakService,
     private UserdataService : UserdataService,
-    private router: Router
+    private router: Router,
+    private publicationPage: PublicationsPage
     ) {}
 
   ngOnInit(): void {
@@ -39,7 +42,8 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['users/' + uidUser]);
   }
 
-  openPost(uidPost: number) {
+  openPost(image) {
+    const uidPost = 'RqimiUwNuT7gJNDATGWvXZ';
     console.log('try open the post number ' + uidPost);
     this.router.navigate(['publications/' + uidPost]);
   }

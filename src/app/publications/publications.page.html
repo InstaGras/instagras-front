@@ -29,8 +29,11 @@
       </div>
       <img class="post-content" [src]="publication.content">
       <ion-buttons slot="start">
-        <ion-button>
+        <ion-button *ngIf="!publication.liked">
           <ion-icon slot="icon-only" name="heart-empty" color="dark"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="publication.liked">
+          <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
         </ion-button>
         <ion-button>
           <ion-icon slot="icon-only" name="text" color="dark"></ion-icon>
