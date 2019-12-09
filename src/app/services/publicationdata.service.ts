@@ -35,7 +35,7 @@ export class PublicationdataService {
      * Récupérer les infos d'une publication en particulier
      */
     public getOnePublicationInfo(uid): Observable<any>{
-        return this.httpClient.get<any>(publicationsBasePath + '/publications/' + uid, httpOptions);
+        return this.httpClient.get<any>(publicationsBasePath + 'publications/' + uid, httpOptions);
     }
 
     /**
@@ -44,32 +44,5 @@ export class PublicationdataService {
     public getTimelinePublications(username){
         return this.httpClient.get(publicationsBasePath + 'userTimeline/' + username);
     }
-
-
-  /*
-
-  public createUser(username: string){
-    const user:User  = new User(username,'','');
-    this.httpClient.post(usersBasePath,  JSON.stringify(user), httpOptions).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
-    );
- }
-  getUserByUsername(username): Observable<any>{
-    return this.httpClient
-    .get<any>(usersBasePath + username, httpOptions);
-  }
-
-  getAllUsers(): Observable<any>{
-    return this.httpClient
-    .get<any>(usersBasePath , httpOptions);
-  }
-
-  public updateUserInfo(username, user): Observable<any>{
-    return this.httpClient.put<any>(usersBasePath + username, user, httpOptions);
-  }
-}
-
-*/
 
 }

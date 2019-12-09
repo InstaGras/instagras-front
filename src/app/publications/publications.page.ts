@@ -3,6 +3,7 @@ import { KeycloakService } from '../auth/keycloak.service';
 import { UserdataService } from '../services/userdata.service';
 import { PublicationdataService } from '../services/publicationdata.service';
 import { Router } from '@angular/router';
+import { CommentairedataService } from '../services/commentairesdata.service';
 
 @Component({
   selector: 'app-publications',
@@ -13,6 +14,7 @@ export class PublicationsPage implements OnInit {
 
   keycloakUserProfile: any;
   publicationInfos;
+  commentaires;
 
   publication = {
     user: {
@@ -30,7 +32,7 @@ export class PublicationsPage implements OnInit {
 
   constructor(
     private keycloakService: KeycloakService,
-    private userdataService : UserdataService,
+    private commentairesdataService : CommentairedataService,
     private publicationdataService: PublicationdataService,
     private router: Router
     ) { }
@@ -38,17 +40,23 @@ export class PublicationsPage implements OnInit {
   ngOnInit() {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
     
-    this.getPostInfo(this.router.url.slice(14));
+    const idPublication = (this.router.url.slice(14));
+
+    this.getPostInfo(idPublication);
+    this.getCommentairesPublications(idPublication);
   }
 
   getPostInfo(uidPost) {
-    this.publicationInfos = this.publicationdataService.getOnePublicationInfo(uidPost)
+    this.publicationdataService.getOnePublicationInfo(uidPost)
     .subscribe(success =>{
-      
       this.publication.user.username = success.data.username;
       this.publication.description = success.data.description;
     });
 
+  }
+
+  getCommentairesPublications(id) {
+    this.commentaires = this.commentairesdataService.getAllCommentairesPublication(id);
   }
 
   getLikeByCurrentUser(uidPost, username){
