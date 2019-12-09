@@ -12,9 +12,6 @@ const routes: Routes = [
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
   { path: 'publications/:publication', loadChildren: './publications/publications.module#PublicationsPageModule' }
 
-
-
-
 ];
 @NgModule({
   imports: [
