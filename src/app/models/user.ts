@@ -10,4 +10,14 @@ export class User {
         this.firstname=firstname;
         this.lastname=lastname;
     }
+
+    getUserIdentity() {
+          const userIdentity = (
+            ((this.firstname) ? this.firstname : '')
+            + ' '
+            + ((this.lastname) ? this.lastname : '')
+          ).toLowerCase().trim();
+          return (userIdentity) ? userIdentity[0].toUpperCase() + userIdentity.slice(1) : 'Identité non saisie';
+    }
 }
+

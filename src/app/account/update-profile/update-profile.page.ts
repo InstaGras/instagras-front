@@ -74,6 +74,7 @@ export class UpdateProfilePage implements OnInit {
         console.log(arg);
         loading.dismiss();
         this.presentSuccesToast();
+        
       }, err => {
         console.log(err);
         loading.dismiss();

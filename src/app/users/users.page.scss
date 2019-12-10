@@ -1,0 +1,89 @@
+.profile-header {
+    display: -webkit-flex;
+	display: flex;
+    margin: 30px 16px 20px 16px;
+    max-width: 1080px;
+}
+
+@media (max-width: 735px) {
+    .profile-header ion-avatar {
+        height: 77px;
+        width: 77px;
+    }
+}
+
+@media (min-width: 736px) {
+    .profile-header ion-avatar {
+        height: 150px;
+        width: 150px;
+    }
+}
+.profile-header ion-avatar {
+    margin-right: 30px;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.profile-text-content .profile-name {
+    display: flex;
+    margin: -5px 0px 3px 3px;
+}
+
+.profile-text-content .profile-name h1 {
+    overflow: hidden;
+    overflow-wrap: initial;
+    text-overflow: ellipsis;
+    margin: 0px;
+    align-self: center;
+}
+
+.profile-header .profile-text-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    -webkit-flex: 1 0 auto;
+	flex: 1 0 auto;
+}
+
+.profile-bio {
+    padding: 0 16px 21px 16px;
+}
+
+.profile-bio b {
+    display: block;
+    text-transform: capitalize; 
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-around;
+    padding: 16px 0 16px 0;
+    border-top: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+ul li span {
+    display: block;
+    font-weight: bolder;
+
+}
+
+.profile-medias{
+    display: flex;
+    flex-wrap: wrap;
+}
+.profile-medias .profile-media {
+    flex: 0 1 calc(100%/3 - 1%);
+    margin: 0.5%;
+    overflow: hidden;
+    width: 100%;
+}
+
+.profile-container {
+    max-width: 736px;
+    margin: auto;
+}

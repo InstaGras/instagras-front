@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title text-center>{{keycloakUserProfile.username }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile-container">
+    <div class="profile-header">
+      <ion-avatar slot="start">
+        <img src="/assets/profile-photo.jpg" />
+      </ion-avatar>
+      <div class="profile-text-content">
+        <div class="profile-name">
+          <h1>
+            {{username}}
+          </h1>
+          <ion-buttons (click)="presentMorePopover($event)">
+            <ion-button *ngIf="isFollowed">
+              <ion-icon slot="icon-only" name="more" color="dark"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+        <ion-button
+          color="light"
+          fill="outline"
+          color="medium"
+          *ngIf="isFollowed"
+          >Contacter</ion-button
+        >
+        <ion-button (click)="subscribe()" *ngIf="!isFollowed">
+          <span *ngIf="!isFollowed">
+          <ion-icon slot="end" name="pizza"></ion-icon>
+          Gras'bonnez-vous !
+          </span>
+          <ion-spinner *ngIf="subscribeSpin"></ion-spinner>
+        </ion-button>
+      </div>
+    </div>
+    <div class="profile-bio">
+      <b>{{userIdentity}}</b>
+    </div>
+    <ul>
+      <li>
+        <ion-text class="center little">
+          <span>{{nbPublications}}</span>
+          Publications
+        </ion-text>
+      </li>
+      <li>
+        <ion-text class="center little" (click) ="openFollowersPage(username)">
+            <span>{{nbFollowers}}</span>
+          Abonnés
+        </ion-text>
+      </li>
+      <li>
+        <ion-text class="center little" (click) ="openFollowedPage(username)">
+            <span>{{nbFollowed}}</span>
+          Abonnements
+        </ion-text>
+      </li>
+    </ul>
+    <div class="profile-medias">
+      <img
+        class="profile-media"
+        *ngFor="let media of publicationsList"
+        src="assets/1.jpg"
+      />
+    </div>
+  </div>
+  <ion-title text-center *ngIf="nbPublications==0">Aucune publication</ion-title>
+
+</ion-content>

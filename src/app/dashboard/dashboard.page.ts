@@ -3,6 +3,8 @@ import { KeycloakService } from '../auth/keycloak.service';
 import { UserdataService } from '../services/userdata.service';
 import { IonContent } from '@ionic/angular';
 import { LikeService } from '../services/like.service';
+import { Router } from '@angular/router';
+import { PublicationdataService } from '../services/publicationdata.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,17 +16,28 @@ export class DashboardPage implements OnInit {
 
   keycloakUserProfile: any;
 
+  publicationsList: any[];
+  followedUserList: string[];
+  nbPublications: number;
   likedPublication = true;
 
   constructor(
-    private keycloakService: KeycloakService, 
+    private keycloakService: KeycloakService,
     private UserdataService : UserdataService,
-    private LikeService : LikeService) {}
+    private PublicationDataService: PublicationdataService,
+    private router: Router,
+    private LikeService : LikeService
+    ) {}
+
 
   ngOnInit(): void {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
     this.UserdataService.createUser(this.keycloakUserProfile.username);
   }
+  ionViewWillEnter(): void {
+    this.initPublications();
+  }
+  
 
   scrollToTop() {
     this.ionContent.scrollToTop(300);
@@ -36,6 +49,11 @@ export class DashboardPage implements OnInit {
 
   openProfile(uidUser: number) {
     console.log('try open the profile number ' + uidUser);
+    this.router.navigate(['users/' + uidUser]);
+  }
+
+  openCreatePublication() {
+    this.router.navigate(['publications/publish']);
   }
 
   openPost(uidPost: number) {
@@ -67,5 +85,42 @@ export class DashboardPage implements OnInit {
     }
     */
   }
+  initPublications(){
+    this.publicationsList=[];
+    //get all users followed by our user
+    this.UserdataService.getFollowedByUsername(this.keycloakUserProfile.username)
+    .subscribe(success => {
+      //for each user get all publications
+      console.log("Users suivis : "+success.data.followed);
+      success.data.followed.forEach(element => {
+        this.PublicationDataService.getPublicationsByUsername(element.followed_username)
+        .subscribe(success => {
+          success.data.publications.forEach(element => {
+          const publication = {
+            id: element.id,
+            username: element.username,
+            description: element.description,
+            creation_date: element.creation_date,
+            content_id: element.content_id,
+          };
+          this.publicationsList.push(publication);
+        })
+      },error=>{
+        console.log(error);
+      })
+    })
+    console.log(this.publicationsList);
+    this.nbPublications=this.publicationsList.length;  
+  },error=>{
+    console.log(error);
+  })
+}
+doRefresh(event) {
+  setTimeout(() => {
+    this.initPublications();
+    event.target.complete();
+  }, 2000);
+}
+
 
 }

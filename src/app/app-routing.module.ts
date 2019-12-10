@@ -7,7 +7,14 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   { path: 'account-options', loadChildren: './account/account.module#AccountPageModule' },
-  { path: 'account-options/update-profile', loadChildren: './account/update-profile/update-profile.module#UpdateProfilePageModule' }
+  { path: 'account-options/update-profile', loadChildren: './account/update-profile/update-profile.module#UpdateProfilePageModule' },
+  { path: 'users/:username', loadChildren: './users/users.module#UsersPageModule' },
+  { path: 'followers/:username', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'followed/:username', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'publications/publish', loadChildren: './publications/create/create.module#CreatePageModule' }
+
+
 
 
 ];
