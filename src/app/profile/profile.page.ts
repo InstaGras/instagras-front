@@ -24,7 +24,6 @@ export class ProfilePage implements OnInit {
   nbPublications: number;
   publicationsList: any[];
   contentsList: any[];
-  publicationImgList: any[];
 
   constructor
   (
@@ -125,11 +124,5 @@ export class ProfilePage implements OnInit {
     });  
   }
 
-  transformBufferToBase64(bufferArray: any[]){
-    let TYPED_ARRAY = new Uint8Array(bufferArray);
-    const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
-      return data + String.fromCharCode(byte);
-    }, ''); 
-    let base64String = btoa(STRING_CHAR);
-  }
+
 }
