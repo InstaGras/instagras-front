@@ -1,9 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { User } from '../models/user';
-import { Observable, throwError } from 'rxjs';
-import { UserInterface } from '../interfaces/user';
+
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -12,7 +11,7 @@ const httpOptions = {
     'Access-Control-Allow-Origin': '*'
   })
 };
-const publicationsBasePath = environment.basePublicationApiUrl;
+const publicationsBasePath = environment.basePublicationApiUrl  ;
 
 @Injectable({
   providedIn: 'root'
@@ -35,14 +34,18 @@ export class PublicationdataService {
      * Récupérer les infos d'une publication en particulier
      */
     public getOnePublicationInfo(uid): Observable<any>{
-        return this.httpClient.get<any>(publicationsBasePath + '/publications/' + uid, httpOptions);
+        return this.httpClient.get<any>(publicationsBasePath + 'publications/' + uid, httpOptions);
     }
 
     /**
      * Récuperer la timeline d'un utilisateur
      */
     public getTimelinePublications(username){
-        return this.httpClient.get(publicationsBasePath + '/userTimeline/' + username);
+        return this.httpClient.get(publicationsBasePath + 'publications/userTimeline/' + username);
     }
 
+  getPublicationsByUsername(username): Observable<any>{
+    return this.httpClient
+    .get<any>(publicationsBasePath+ 'publications' + '?username='+username, httpOptions);
+  }
 }

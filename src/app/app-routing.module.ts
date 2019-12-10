@@ -10,7 +10,11 @@ const routes: Routes = [
   { path: 'account-options/update-profile', loadChildren: './account/update-profile/update-profile.module#UpdateProfilePageModule' },
   { path: 'users/:username', loadChildren: './users/users.module#UsersPageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
-  { path: 'publications/:publication', loadChildren: './publications/publications.module#PublicationsPageModule' }
+  { path: 'publications/:publication', loadChildren: './publications/publications.module#PublicationsPageModule' },
+  { path: 'followers/:username', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'followed/:username', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'publications/publish', loadChildren: './publications/create/create.module#CreatePageModule' }
 
 ];
 @NgModule({

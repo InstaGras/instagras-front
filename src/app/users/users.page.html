@@ -3,14 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-
-    <ion-title text-center>{{user.username}}</ion-title>
-
-    <!--<ion-buttons slot="end">
-          <ion-button>
-            <ion-icon slot="icon-only" name="person-add"></ion-icon>
-          </ion-button>
-        </ion-buttons>-->
+    <ion-title text-center>{{keycloakUserProfile.username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,10 +16,10 @@
       <div class="profile-text-content">
         <div class="profile-name">
           <h1>
-            {{user.username}}
+            {{username}}
           </h1>
           <ion-buttons (click)="presentMorePopover($event)">
-            <ion-button>
+            <ion-button *ngIf="isFollowed">
               <ion-icon slot="icon-only" name="more" color="dark"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -35,11 +28,11 @@
           color="light"
           fill="outline"
           color="medium"
-          *ngIf="user.followed"
+          *ngIf="isFollowed"
           >Contacter</ion-button
         >
-        <ion-button (click)="subscribe()" *ngIf="!user.followed">
-          <span *ngIf="!subscribeSpin">
+        <ion-button (click)="subscribe()" *ngIf="!isFollowed">
+          <span *ngIf="!isFollowed">
           <ion-icon slot="end" name="pizza"></ion-icon>
           Gras'bonnez-vous !
           </span>
@@ -48,25 +41,24 @@
       </div>
     </div>
     <div class="profile-bio">
-      <b *ngIf="user.getUserIdentity()">{{user.getUserIdentity()}}</b>
-      <span *ngIf="user.bio">{{user.bio}}</span>
+      <b>{{userIdentity}}</b>
     </div>
     <ul>
       <li>
         <ion-text class="center little">
-          <span>{{user.countPublications}}</span>
+          <span>{{nbPublications}}</span>
           Publications
         </ion-text>
       </li>
       <li>
-        <ion-text class="center little">
-            <span>{{user.countFollowers}}</span>
+        <ion-text class="center little" (click) ="openFollowersPage(username)">
+            <span>{{nbFollowers}}</span>
           Abonnés
         </ion-text>
       </li>
       <li>
-        <ion-text class="center little">
-            <span>{{user.countSubscriptions}}</span>
+        <ion-text class="center little" (click) ="openFollowedPage(username)">
+            <span>{{nbFollowed}}</span>
           Abonnements
         </ion-text>
       </li>
@@ -74,10 +66,11 @@
     <div class="profile-medias">
       <img
         class="profile-media"
-        *ngFor="let media of [1,2,3,4,5,6,7,8,9,10,11]"
-        src="assets/{{media}}.jpg"
-        (click)="openPost(media)"
+        *ngFor="let media of publicationsList"
+        src="assets/1.jpg"
       />
     </div>
   </div>
+  <ion-title text-center *ngIf="nbPublications==0">Aucune publication</ion-title>
+
 </ion-content>
