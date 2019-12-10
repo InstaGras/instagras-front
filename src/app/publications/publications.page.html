@@ -74,6 +74,11 @@
             </small>
           </div>
         </div>
+        <ion-buttons slot="start">
+          <ion-button (click)="deleteComment(comment.id)" *ngIf="comment.username == this.keycloakUserProfile.username">
+            <ion-icon slot="icon-only" name="trash" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </div>  
     </div>
   </div>

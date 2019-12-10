@@ -97,6 +97,18 @@ export class PublicationsPage implements OnInit {
       err => console.log(err)
     );
   }
-  
+
+  async deleteComment(idComment) {
+
+    console.log(idComment);
+
+    this.commentairesdataService.deleteComment(idComment)
+    .subscribe(
+      success => {
+        console.log(success)
+        this.getAllComments(this.idPublication);
+      }
+    );
+  }
   
 }
