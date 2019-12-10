@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MoreComponent } from './more/more.component';
 
@@ -36,7 +36,8 @@ export class UsersPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    public popoverController: PopoverController
+    public popoverController: PopoverController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -69,5 +70,10 @@ export class UsersPage implements OnInit {
     console.log('subscribe to ' + this.user.username);
     this.user.followed = true;
     this.subscribeSpin = false;
+  }
+
+  openPost(uidPost: number) {
+    console.log('try open the post number ' + uidPost);
+    this.router.navigate(['publications/' + uidPost]);
   }
 }
