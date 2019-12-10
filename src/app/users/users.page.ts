@@ -133,6 +133,13 @@ export class UsersPage implements OnInit {
     this.isFollowed = true;
     this.subscribeSpin = false;
   }
+
+  openPost(uidPost: number) {
+    console.log('try open the post number ' + uidPost);
+    console.log(uidPost);
+    this.router.navigate(['publications/' + uidPost]);
+  }
+
   unfollow() {
     this.UserDataService.deleteFollower(this.username,this.keycloakUserProfile.username)
     .subscribe(
