@@ -15,17 +15,21 @@
   </ion-header>
   
   <ion-content>
+      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)"> 
+        <ion-refresher-content ></ion-refresher-content>
+      </ion-refresher>
+
     <div class="feed-container">
-      <div class="post" *ngFor="let image of [1,2,3,4,5,6,7,8,9,10,11]">
+      <div class="post" *ngFor="let publication of publicationsList">
         <div class="post-header">
             <ion-avatar>
-                <img src="/assets/profile-photo.jpg" (click)="openProfile(image)"/>
+                <img src="/assets/profile-photo.jpg" />
               </ion-avatar>
-              <h1 class="post-header-username" (click)="openProfile(image)">
-                {{keycloakUserProfile.username}}
+              <h1 class="post-header-username">
+                {{publication.username}}
               </h1>
         </div>
-        <img class="post-content" src="assets/profile-photo.jpg" (click)="openPost(image)">
+        <img class="post-content" src="assets/profile-photo.jpg">
         <ion-buttons slot="start">
             <ion-button>
               <ion-icon slot="icon-only" name="heart-empty" color="dark"></ion-icon>
@@ -41,8 +45,12 @@
               Aimé par users
           </small>
             <p class="post-description" (click)="openPost(image)">
-              Superbe et sublime description
+              {{publication.description}}
             </p>
+      </div>
+      <div>
+     
+        <ion-title text-center *ngIf="nbPublications==0"> <p><p>Aucune publication</ion-title>
       </div>
     </div>
   </ion-content>
