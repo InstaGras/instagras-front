@@ -5,6 +5,7 @@ import { UserdataService } from '../services/userdata.service';
 import { User } from '../models/user';
 import { NavController } from '@ionic/angular';
 import { PublicationdataService } from '../services/publicationdata.service';
+import { ContentdataService } from '../services/contentdata.service';
 
 
 
@@ -22,6 +23,8 @@ export class ProfilePage implements OnInit {
   nbFollowed: string;
   nbPublications: number;
   publicationsList: any[];
+  contentsList: any[];
+  publicationImgList: any[];
 
   constructor
   (
@@ -30,6 +33,8 @@ export class ProfilePage implements OnInit {
     private UserDataService: UserdataService,
     public navCtrl: NavController,
     private PublicationDataService: PublicationdataService,
+    private ContentDataService: ContentdataService,
+
   ) {}
 
   ngOnInit(): void {
@@ -90,9 +95,10 @@ export class ProfilePage implements OnInit {
 
   initPublications(){
     this.publicationsList=[];
+    this.contentsList=[];
     this.PublicationDataService.getPublicationsByUsername(this.keycloakUserProfile.username)
     .subscribe(success => {
-      console.log(success);
+      //initialisation of publications lists
       success.data.publications.forEach(element => {
         const publication = {
           id: element.id,
@@ -102,11 +108,28 @@ export class ProfilePage implements OnInit {
           content_id: element.content_id,
         };
         this.publicationsList.push(publication);
-      }
-      )
+        //initialisation of content list
+        if(publication.content_id==undefined ||publication.content_id==""||publication.content_id==null){
+          publication.content_id="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
+        }
+        this.ContentDataService.getContentById(publication.content_id).subscribe(success => { 
+            this.contentsList.push(success.data);
+        },error => {
+            console.log(error);
+        }); 
+      })
     this.nbPublications=this.publicationsList.length;
+    console.log(this.contentsList);
     },error => {
       console.log(error);
     });  
+  }
+
+  transformBufferToBase64(bufferArray: any[]){
+    let TYPED_ARRAY = new Uint8Array(bufferArray);
+    const STRING_CHAR = TYPED_ARRAY.reduce((data, byte)=> {
+      return data + String.fromCharCode(byte);
+    }, ''); 
+    let base64String = btoa(STRING_CHAR);
   }
 }
