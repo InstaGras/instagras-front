@@ -12,7 +12,7 @@ const httpOptions = {
     'Access-Control-Allow-Origin': '*'
   })
 };
-const likeBasePath = environment.baseLikeApiUrl;
+const likeBasePath = environment.baseLikeApiUrl + '/likes/';
 
 @Injectable({
   providedIn: 'root'
@@ -23,14 +23,13 @@ export class LikeService {
   
   constructor(private httpClient : HttpClient) { }
 
-  public addLikePublication(data) {
+  public addLikePublication(data): Observable<any> {
       console.log(data);
-      return this.httpClient.post<any>(likeBasePath, data).subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error));
+      return this.httpClient.post<any>(likeBasePath, data, httpOptions);
   }
 
   public deleteLikePublication(data) : Observable<any>{
+    console.log(data);
       return this.httpClient.delete<any>(likeBasePath, data);
   }
 }

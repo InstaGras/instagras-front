@@ -44,15 +44,28 @@ export class DashboardPage implements OnInit {
 
   likePublication(value) {
     this.likedPublication = value;
-    const user = this.keycloakUserProfile.username;
-    const publication = 'publication id';
+    const username = this.keycloakUserProfile.username;
+    const publication = 'RqimiUwNuT7gJNDATGWvXZ';
     
-    const data = {user, publication}
+    const data = { username, publication }
+
+    this.LikeService.addLikePublication(data)
+    .subscribe(
+      success => console.log(success)
+    )
+    /*
     if (value === true ) {
-      this.LikeService.deleteLikePublication(data);
+      this.LikeService.deleteLikePublication(data)
+      .subscribe(
+        success => console.log(success)
+      );
     } else {
-      this.LikeService.addLikePublication(data);
+      this.LikeService.addLikePublication(data)
+      .subscribe(
+        success => console.log(success)
+      );
     }
+    */
   }
 
 }
