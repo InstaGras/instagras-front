@@ -49,6 +49,10 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['users/' + uidUser]);
   }
 
+  openCreatePublication() {
+    this.router.navigate(['publications/publish']);
+  }
+
   openPost(uidPost: number) {
     console.log('try open the post number ' + uidPost);
   }

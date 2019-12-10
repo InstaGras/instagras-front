@@ -11,7 +11,9 @@ const routes: Routes = [
   { path: 'users/:username', loadChildren: './users/users.module#UsersPageModule' },
   { path: 'followers/:username', loadChildren: './search/search.module#SearchPageModule' },
   { path: 'followed/:username', loadChildren: './search/search.module#SearchPageModule' },
-  { path: 'search', loadChildren: './search/search.module#SearchPageModule' }
+  { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'publications/publish', loadChildren: './publications/create/create.module#CreatePageModule' }
+
 
 
 
