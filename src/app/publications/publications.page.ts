@@ -18,6 +18,7 @@ export class PublicationsPage implements OnInit {
   keycloakUserProfile: any;
   publicationInfos;
   public commentaires: string = '';
+  public allCommentaires: Array<any>;
 
   publication = {
     user: {
@@ -35,6 +36,8 @@ export class PublicationsPage implements OnInit {
 
    public idPublication;
 
+   public comments;
+
   constructor(
     private keycloakService: KeycloakService,
     private commentairesdataService : CommentairedataService,
@@ -49,6 +52,8 @@ export class PublicationsPage implements OnInit {
     
     this.idPublication = (this.activatedRoute.snapshot.paramMap.get('publication'));
     this.getPostInfo(this.idPublication);
+
+    this.getAllComments(this.idPublication);
   }
 
   getPostInfo(uidPost) {
@@ -68,16 +73,29 @@ export class PublicationsPage implements OnInit {
   }
 
   async addCommentaire(contenuCommentaire) {
-    
     const data = { 
       contenu: contenuCommentaire,
       username: this.keycloakUserProfile.username,
       publication: this.idPublication
      }
 
-    this.commentairesdataService.addComment(data);
-    console.log(contenuCommentaire);
+    this.commentairesdataService.addComment(data)
+    .subscribe(
+      success => {
+        this.getAllComments(this.idPublication);
+      }
+    );
   }
 
+  async getAllComments(idPublication){
+    this.commentairesdataService.getAllCommentairesPublication(idPublication)
+    .subscribe(
+      success => {
+        this.comments = success.data;
+        console.log(this.comments);
+      },
+      err => console.log(err)
+    );
+  }
   
 }

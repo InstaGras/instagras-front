@@ -23,15 +23,11 @@ export class CommentairedataService {
     /**
      * Récupérer toutes les publications d'un utilisateur ==> Profil
      */
-    public getAllCommentairesPublication(idPublication){
-        return this.httpClient.get(commentairesBasePath + 'getAllCommentairesPublication/' + idPublication, httpOptions)
+    public getAllCommentairesPublication(idPublication) : any{
+        return this.httpClient.get(commentairesBasePath + '/commentaires/' + idPublication, httpOptions);
     }
 
     public addComment(data){
-      console.log(data);
-      return this.httpClient.post(commentairesBasePath + '/create/', data, httpOptions)
-      .subscribe(
-        success => console.log(success)
-      );
+      return this.httpClient.post(commentairesBasePath + '/create/', data, httpOptions);
     }
 }
