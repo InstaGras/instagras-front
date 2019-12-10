@@ -34,6 +34,23 @@
     cursor: pointer;
 }
 
+.send-message {
+    display: flex;
+    margin: 0px 10px 15px 10px;
+}
+
+.send-message ion-textarea {
+    flex: 1 1 auto;
+    border: lightgrey solid 1px;
+    border-radius: 18px;
+    padding-left: 8px;
+    margin-right: 8px;
+}
+
+.comments {
+    margin: 0px 10px 0px 10px;
+}
+
 .comments .comment {
     display: flex;
 }
@@ -71,16 +88,4 @@
 
 .comments .comment {
     margin-bottom: 10px;
-}
-
-form {
-    display: flex;
-    margin-bottom: 15px;
-}
-
-form ion-textarea {
-    flex: 1 1 auto;
-    border: lightgrey solid 1px;
-    border-radius: 18px;
-    padding: 9px;
 }
