@@ -49,14 +49,14 @@
         {{publication.description}}
       </p>
     </div>
-
-   
-      <ion-item>
-        <ion-label position="floating">Commentaire</ion-label>
-        <ion-input [(ngModel)]="commentaire" type="text"></ion-input>
-      </ion-item>
-      
-      <button (click)="addCommentaire(commentaire)">Commenter</button>
+    <div class="send-message">
+    <ion-textarea [(ngModel)]="commentaire" type="text" auto-grow="true" maxlength="256" minlength="1" placeholder="Votre commentaire ..."></ion-textarea>
+    <ion-buttons>
+      <ion-button (click)="addCommentaire(commentaire)" color="dark">
+        <ion-icon slot="icon-only" name="paper-plane"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </div>
    
 
     <div class="comments">
