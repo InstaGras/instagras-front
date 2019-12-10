@@ -72,3 +72,15 @@
 .comments .comment {
     margin-bottom: 10px;
 }
+
+form {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+form ion-textarea {
+    flex: 1 1 auto;
+    border: lightgrey solid 1px;
+    border-radius: 18px;
+    padding: 9px;
+}

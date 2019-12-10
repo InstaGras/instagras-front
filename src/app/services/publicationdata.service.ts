@@ -28,21 +28,21 @@ export class PublicationdataService {
      * Récupérer toutes les publications d'un utilisateur ==> Profil
      */
     public getPublicationsSpecificUser(user){
-        return this.httpClient.get(publicationsBasePath + 'allPublications/' + user)
+        return this.httpClient.get(publicationsBasePath + '/allPublications/' + user)
     }
 
     /**
      * Récupérer les infos d'une publication en particulier
      */
     public getOnePublicationInfo(uid): Observable<any>{
-        return this.httpClient.get<any>(publicationsBasePath + 'publications/' + uid, httpOptions);
+        return this.httpClient.get<any>(publicationsBasePath + '/publications/' + uid, httpOptions);
     }
 
     /**
      * Récuperer la timeline d'un utilisateur
      */
     public getTimelinePublications(username){
-        return this.httpClient.get(publicationsBasePath + 'userTimeline/' + username);
+        return this.httpClient.get(publicationsBasePath + '/userTimeline/' + username);
     }
 
 }

@@ -26,4 +26,12 @@ export class CommentairedataService {
     public getAllCommentairesPublication(idPublication){
         return this.httpClient.get(commentairesBasePath + 'getAllCommentairesPublication/' + idPublication, httpOptions)
     }
+
+    public addComment(data){
+      console.log(data);
+      return this.httpClient.post(commentairesBasePath + '/create/', data, httpOptions)
+      .subscribe(
+        success => console.log(success)
+      );
+    }
 }

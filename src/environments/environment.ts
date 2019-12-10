@@ -12,8 +12,9 @@ export const environment = {
   baseUserApiUrl:'http://works.wtf/userws',
   //baseUserApiUrl:'http://localhost:3000/userws',
   instagrasUrl:'http://localhost:8100',
-  basePublicationApiUrl: 'http://localhost:3000/publicationws',
-  baseCommentairesApiUrl: 'http://localhost:3000/commentairesws'
+  //basePublicationApiUrl: 'http://localhost:3000/publicationws/',
+  basePublicationApiUrl: 'http://works.wtf/publicationws',
+  baseCommentairesApiUrl: 'http://localhost:3001/commentairesws'
 };
 
 /*

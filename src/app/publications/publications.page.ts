@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from '../auth/keycloak.service';
 import { UserdataService } from '../services/userdata.service';
 import { PublicationdataService } from '../services/publicationdata.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommentairedataService } from '../services/commentairesdata.service';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-publications',
@@ -12,9 +13,11 @@ import { CommentairedataService } from '../services/commentairesdata.service';
 })
 export class PublicationsPage implements OnInit {
 
+  addComment: FormGroup;
+
   keycloakUserProfile: any;
   publicationInfos;
-  commentaires;
+  public commentaires: string = '';
 
   publication = {
     user: {
@@ -30,20 +33,22 @@ export class PublicationsPage implements OnInit {
    public href: string = "";
    public publicationID: string;
 
+   public idPublication;
+
   constructor(
     private keycloakService: KeycloakService,
     private commentairesdataService : CommentairedataService,
     private publicationdataService: PublicationdataService,
-    private router: Router
+    private router: Router,
+    public formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute
     ) { }
 
   ngOnInit() {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
     
-    const idPublication = (this.router.url.slice(14));
-
-    this.getPostInfo(idPublication);
-    this.getCommentairesPublications(idPublication);
+    this.idPublication = (this.activatedRoute.snapshot.paramMap.get('publication'));
+    this.getPostInfo(this.idPublication);
   }
 
   getPostInfo(uidPost) {
@@ -55,10 +60,6 @@ export class PublicationsPage implements OnInit {
 
   }
 
-  getCommentairesPublications(id) {
-    this.commentaires = this.commentairesdataService.getAllCommentairesPublication(id);
-  }
-
   getLikeByCurrentUser(uidPost, username){
     /**
      * ajouter feature like
@@ -66,4 +67,17 @@ export class PublicationsPage implements OnInit {
     
   }
 
+  async addCommentaire(contenuCommentaire) {
+    
+    const data = { 
+      contenu: contenuCommentaire,
+      username: this.keycloakUserProfile.username,
+      publication: this.idPublication
+     }
+
+    this.commentairesdataService.addComment(data);
+    console.log(contenuCommentaire);
+  }
+
+  
 }

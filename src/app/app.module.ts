@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserdataService } from './services/userdata.service';
+import { FormBuilder } from '@angular/forms';
 
 
 export function kcFactory(keycloakService: KeycloakService) {
@@ -40,7 +41,8 @@ export function kcFactory(keycloakService: KeycloakService) {
       deps: [KeycloakService],
       multi: true
     },
-    UserdataService
+    UserdataService,
+    FormBuilder
   ],
   bootstrap: [AppComponent]
 })
