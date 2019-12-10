@@ -3,6 +3,7 @@ import { KeycloakService } from '../auth/keycloak.service';
 import { UserdataService } from '../services/userdata.service';
 import { IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { PublicationdataService } from '../services/publicationdata.service';
 
 
 
@@ -15,18 +16,25 @@ export class DashboardPage implements OnInit {
   @ViewChild(IonContent, { static: false }) ionContent: IonContent;
 
   keycloakUserProfile: any;
-  publicationList: string[];
+  publicationsList: any[];
+  followedUserList: string[];
+  nbPublications: number;
+
   constructor(
     private keycloakService: KeycloakService,
     private UserdataService : UserdataService,
+    private PublicationDataService: PublicationdataService,
     private router: Router
     ) {}
 
   ngOnInit(): void {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
     this.UserdataService.createUser(this.keycloakUserProfile.username);
-    this.publicationList=[];
   }
+  ionViewWillEnter(): void {
+    this.initPublications();
+  }
+  
 
   scrollToTop() {
     this.ionContent.scrollToTop(300);
@@ -44,5 +52,43 @@ export class DashboardPage implements OnInit {
   openPost(uidPost: number) {
     console.log('try open the post number ' + uidPost);
   }
+
+  initPublications(){
+    this.publicationsList=[];
+    //get all users followed by our user
+    this.UserdataService.getFollowedByUsername(this.keycloakUserProfile.username)
+    .subscribe(success => {
+      //for each user get all publications
+      console.log("Users suivis : "+success.data.followed);
+      success.data.followed.forEach(element => {
+        this.PublicationDataService.getPublicationsByUsername(element.followed_username)
+        .subscribe(success => {
+          success.data.publications.forEach(element => {
+          const publication = {
+            id: element.id,
+            username: element.username,
+            description: element.description,
+            creation_date: element.creation_date,
+            content_id: element.content_id,
+          };
+          this.publicationsList.push(publication);
+        })
+      },error=>{
+        console.log(error);
+      })
+    })
+    console.log(this.publicationsList);
+    this.nbPublications=this.publicationsList.length;  
+  },error=>{
+    console.log(error);
+  })
+}
+doRefresh(event) {
+  setTimeout(() => {
+    this.initPublications();
+    event.target.complete();
+  }, 2000);
+}
+
 
 }

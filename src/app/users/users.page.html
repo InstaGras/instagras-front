@@ -42,12 +42,11 @@
     </div>
     <div class="profile-bio">
       <b>{{userIdentity}}</b>
-      <span>Bio de {{username}}</span>
     </div>
     <ul>
       <li>
         <ion-text class="center little">
-          <span>0</span>
+          <span>{{nbPublications}}</span>
           Publications
         </ion-text>
       </li>
@@ -67,9 +66,11 @@
     <div class="profile-medias">
       <img
         class="profile-media"
-        *ngFor="let media of [1,2,3,4,5,6,7,8,9,10,11]"
-        src="assets/{{media}}.jpg"
+        *ngFor="let media of publicationsList"
+        src="assets/1.jpg"
       />
     </div>
   </div>
+  <ion-title text-center *ngIf="nbPublications==0">Aucune publication</ion-title>
+
 </ion-content>

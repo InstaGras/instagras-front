@@ -5,6 +5,7 @@ import { MoreComponent } from './more/more.component';
 import { UserdataService } from '../services/userdata.service';
 import { User } from '../models/user';
 import { KeycloakService } from '../auth/keycloak.service';
+import { PublicationdataService } from '../services/publicationdata.service';
 
 @Component({
   selector: 'app-users',
@@ -16,26 +17,33 @@ export class UsersPage implements OnInit {
   user: User;
   nbFollowers: string;
   nbFollowed: string;
+  nbPublications: number;
   userIdentity: string;
   subscribeSpin: boolean;
   isFollowed: boolean;
   keycloakUserProfile: any;
   followersList: string[];
-
+  publicationsList: any[];
 
   constructor(
     private keycloakService: KeycloakService,
     private activatedRoute: ActivatedRoute,
     public popoverController: PopoverController,
     private UserDataService: UserdataService,
+    private PublicationDataService: PublicationdataService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
+    
+  }
+
+  ionViewWillEnter(): void {
     this.username = this.activatedRoute.snapshot.paramMap.get('username');
     this.initUser();
     this.initIsFollowed();
+    this.initPublications();
   }
 
   initUser() {
@@ -65,6 +73,28 @@ export class UsersPage implements OnInit {
       }else{
         this.isFollowed=false;
       };
+    },error => {
+      console.log(error);
+    });  
+  }
+
+  initPublications(){
+    this.publicationsList=[];
+    this.PublicationDataService.getPublicationsByUsername(this.activatedRoute.snapshot.paramMap.get('username'))
+    .subscribe(success => {
+      console.log(success);
+      success.data.publications.forEach(element => {
+        const publication = {
+          id: element.id,
+          username: element.username,
+          description: element.description,
+          creation_date: element.creation_date,
+          content_id: element.content_id,
+        };
+        this.publicationsList.push(publication);
+      }
+      )
+    this.nbPublications=this.publicationsList.length;
     },error => {
       console.log(error);
     });  
