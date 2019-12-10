@@ -2,10 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { KeycloakService } from '../auth/keycloak.service';
 import { UserdataService } from '../services/userdata.service';
 import { IonContent } from '@ionic/angular';
+import { LikeService } from '../services/like.service';
 import { Router } from '@angular/router';
 import { PublicationdataService } from '../services/publicationdata.service';
-
-
 
 @Component({
   selector: 'app-dashboard',
@@ -16,16 +15,20 @@ export class DashboardPage implements OnInit {
   @ViewChild(IonContent, { static: false }) ionContent: IonContent;
 
   keycloakUserProfile: any;
+
   publicationsList: any[];
   followedUserList: string[];
   nbPublications: number;
+  likedPublication = true;
 
   constructor(
     private keycloakService: KeycloakService,
     private UserdataService : UserdataService,
     private PublicationDataService: PublicationdataService,
-    private router: Router
+    private router: Router,
+    private LikeService : LikeService
     ) {}
+
 
   ngOnInit(): void {
     this.keycloakUserProfile = this.keycloakService.getUserProfile();
@@ -57,6 +60,31 @@ export class DashboardPage implements OnInit {
     console.log('try open the post number ' + uidPost);
   }
 
+  likePublication(value) {
+    this.likedPublication = value;
+    const username = this.keycloakUserProfile.username;
+    const publication = 'RqimiUwNuT7gJNDATGWvXZ';
+    
+    const data = { username, publication }
+
+    this.LikeService.addLikePublication(data)
+    .subscribe(
+      success => console.log(success)
+    )
+    /*
+    if (value === true ) {
+      this.LikeService.deleteLikePublication(data)
+      .subscribe(
+        success => console.log(success)
+      );
+    } else {
+      this.LikeService.addLikePublication(data)
+      .subscribe(
+        success => console.log(success)
+      );
+    }
+    */
+  }
   initPublications(){
     this.publicationsList=[];
     //get all users followed by our user
