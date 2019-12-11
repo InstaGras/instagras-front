@@ -55,8 +55,8 @@ export class PublicationsPage implements OnInit {
     
     this.idPublication = (this.activatedRoute.snapshot.paramMap.get('publication'));
     this.getPostInfo(this.idPublication);
-    this.getLikeCount(this.idPublication);
-    this.getLikeByCurrentUser();
+    //this.getLikeCount(this.idPublication);
+    //this.getLikeByCurrentUser();
     
     this.getAllComments(this.idPublication);
   }

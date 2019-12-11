@@ -24,7 +24,6 @@ export class ProfilePage implements OnInit {
   nbFollowed: string;
   nbPublications: number;
   publicationsList: any[];
-  imagesList: any[];
 
 
   constructor
@@ -106,26 +105,30 @@ export class ProfilePage implements OnInit {
     .subscribe(success => {
       //initialisation of publications lists
       success.data.publications.forEach(element => {
-        const publication = {
-          id: element.id,
-          username: element.username,
-          description: element.description,
-          creation_date: element.creation_date,
-          content_id: element.content_id,
-        };
-        this.publicationsList.push(publication);
+        var id= element.id;
+        var username= element.username;
+        var description= element.description;
+        var creation_date= element.creation_date;
+        var content_id= element.content_id;
         //initialisation of content list
-        if(publication.content_id==undefined ||publication.content_id==""||publication.content_id==null){
-          publication.content_id="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
+        if(content_id==undefined ||content_id==""||content_id==null){
+          content_id="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
         }
-        this.ContentDataService.getContentById(publication.content_id).subscribe(success => { 
-            this.imagesList.push(this.convertToImage(success.data));
+        this.ContentDataService.getContentById(content_id).subscribe(success => { 
+          const publication = {
+            id: id,
+            username: username,
+            description: description,
+            creation_date: creation_date,
+            content_id: content_id,
+            img: this.convertToImage(success.data)
+          };
+          this.publicationsList.push(publication);
         },error => {
             console.log(error);
         }); 
       })
     this.nbPublications=this.publicationsList.length;
-    console.log(this.imagesList);
     },error => {
       console.log(error);
     });  

@@ -48,10 +48,10 @@
             </li>
         </ul>
           <div class="profile-medias">
-              <img class="profile-media" *ngFor="let img of imagesList" src="data:image/JPEG;base64,{{img}}" (click)="openPost(media.id)">
+              <img class="profile-media" *ngFor="let publication of publicationsList" src="data:image/JPEG;base64,{{publication.img}}" (click)="openPost(publication.id)">
           </div>
 
-          <ion-title text-center *ngIf="nbPublications==0">Aucune publication</ion-title>
+          <ion-title text-center *ngIf="this.nbPublications==0">Aucune publication</ion-title>
   </div>
 </ion-content>
 
