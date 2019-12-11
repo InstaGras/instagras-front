@@ -29,7 +29,7 @@
                 {{publication.username}}
               </h1>
         </div>
-        <img class="post-content" src="assets/profile-photo.jpg" (click)="openPost(publication.id)">
+        <img class="post-content" src="data:image/JPEG;base64,{{publication.img}}">
         <ion-buttons slot="start">
             <ion-button (click)=likePublication(false) *ngIf ="likedPublication"> 
               <ion-icon slot="icon-only" name="heart-empty" color="dark"></ion-icon>
@@ -37,7 +37,7 @@
             <ion-button (click)=likePublication(true) *ngIf ="!likedPublication">
               <ion-icon slot="icon-only" name="heart" color="red" ></ion-icon>
             </ion-button>
-            <ion-button>
+            <ion-button (click)="openPost(publication.id)">
               <ion-icon slot="icon-only" name="text" color="dark"></ion-icon>
             </ion-button>
             <ion-button>
