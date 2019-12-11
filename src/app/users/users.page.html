@@ -65,9 +65,7 @@
     </ul>
     <div class="profile-medias">
       <img
-        class="profile-media"
-        *ngFor="let media of publicationsList"
-        src="assets/1.jpg"
+        class="profile-media" *ngFor="let media of publicationsList" src="assets/1.jpg" (click)="openPost(media.id)"
       />
     </div>
   </div>
