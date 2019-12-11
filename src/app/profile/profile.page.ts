@@ -5,6 +5,7 @@ import { UserdataService } from '../services/userdata.service';
 import { User } from '../models/user';
 import { NavController } from '@ionic/angular';
 import { PublicationdataService } from '../services/publicationdata.service';
+import { ContentdataService } from '../services/contentdata.service';
 
 
 
@@ -14,6 +15,7 @@ import { PublicationdataService } from '../services/publicationdata.service';
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage implements OnInit {
+  [x: string]: any;
 
   keycloakUserProfile: any;
   user: User;
@@ -22,6 +24,8 @@ export class ProfilePage implements OnInit {
   nbFollowed: string;
   nbPublications: number;
   publicationsList: any[];
+  imagesList: any[];
+
 
   constructor
   (
@@ -30,6 +34,8 @@ export class ProfilePage implements OnInit {
     private UserDataService: UserdataService,
     public navCtrl: NavController,
     private PublicationDataService: PublicationdataService,
+    private ContentDataService: ContentdataService,
+
   ) {}
 
   ngOnInit(): void {
@@ -95,9 +101,10 @@ export class ProfilePage implements OnInit {
 
   initPublications(){
     this.publicationsList=[];
+    this.imagesList=[];
     this.PublicationDataService.getPublicationsByUsername(this.keycloakUserProfile.username)
     .subscribe(success => {
-      console.log(success);
+      //initialisation of publications lists
       success.data.publications.forEach(element => {
         const publication = {
           id: element.id,
@@ -107,11 +114,32 @@ export class ProfilePage implements OnInit {
           content_id: element.content_id,
         };
         this.publicationsList.push(publication);
-      }
-      )
+        //initialisation of content list
+        if(publication.content_id==undefined ||publication.content_id==""||publication.content_id==null){
+          publication.content_id="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
+        }
+        this.ContentDataService.getContentById(publication.content_id).subscribe(success => { 
+            this.imagesList.push(this.convertToImage(success.data));
+        },error => {
+            console.log(error);
+        }); 
+      })
     this.nbPublications=this.publicationsList.length;
+    console.log(this.imagesList);
     },error => {
       console.log(error);
     });  
   }
+
+  convertToImage(buffer){
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+  }
+
+
 }

@@ -6,6 +6,7 @@ import { LikeService } from '../services/like.service';
 import { Router } from '@angular/router';
 import { PublicationsPage } from '../publications/publications.page';
 import { PublicationdataService } from '../services/publicationdata.service';
+import { ContentdataService } from '../services/contentdata.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,10 +27,12 @@ export class DashboardPage implements OnInit {
   constructor(
     private keycloakService: KeycloakService,
     private UserdataService : UserdataService,
-    private router: Router,
     private publicationPage: PublicationsPage,
     private PublicationDataService: PublicationdataService,
-    private likeService : LikeService
+
+    private likeService : LikeService,
+    private router: Router,
+    private ContentDataService: ContentdataService
     ) {}
 
 
@@ -100,16 +103,29 @@ export class DashboardPage implements OnInit {
         this.PublicationDataService.getPublicationsByUsername(element.followed_username)
         .subscribe(success => {
           success.data.publications.forEach(element => {
-          const publication = {
-            id: element.id,
-            username: element.username,
-            description: element.description,
-            creation_date: element.creation_date,
-            content_id: element.content_id,
-//          likeCount: 
-//          likedByCurrentUser
-          };
-          this.publicationsList.push(publication);
+
+            var id= element.id;
+            var username= element.username;
+            var description= element.description;
+            var creation_date= element.creation_date;
+            var content_id= element.content_id;
+            //initialisation of content list
+          if(content_id==undefined ||content_id==""||content_id==null){
+            content_id="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
+          }
+          this.ContentDataService.getContentById(content_id).subscribe(success => { 
+            const publication = {
+              id: id,
+              username: username,
+              description: description,
+              creation_date: creation_date,
+              content_id: content_id,
+              img: this.convertToImage(success.data)
+            };
+            this.publicationsList.push(publication);
+          },error => {
+            console.log(error);
+          }); 
         })
       },error=>{
         console.log(error);
@@ -127,4 +143,13 @@ doRefresh(event) {
   }, 2000);
 }
 
+convertToImage(buffer){
+  var binary = '';
+  var bytes = new Uint8Array( buffer );
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode( bytes[ i ] );
+  }
+  return window.btoa( binary );
+}
 }
