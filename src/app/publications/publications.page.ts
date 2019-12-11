@@ -5,6 +5,7 @@ import { PublicationdataService } from '../services/publicationdata.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommentairedataService } from '../services/commentairesdata.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { ContentdataService } from '../services/contentdata.service';
 
 @Component({
   selector: 'app-publications',
@@ -27,7 +28,7 @@ export class PublicationsPage implements OnInit {
     },
     liked: true,
     likeCount: 3,
-    content: ['/assets/profile-photo.jpg'],
+    content: '',
     description: 'oui'
    };
 
@@ -44,7 +45,8 @@ export class PublicationsPage implements OnInit {
     private publicationdataService: PublicationdataService,
     private router: Router,
     public formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private ContentDataService: ContentdataService,
     ) { }
 
   ngOnInit() {
@@ -61,6 +63,15 @@ export class PublicationsPage implements OnInit {
     .subscribe(success =>{
       this.publication.user.username = success.data.username;
       this.publication.description = success.data.description;
+      let contentId=success.data.content_id;
+      if(contentId==undefined ||contentId==""||contentId==null){
+        contentId="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
+      }
+      this.ContentDataService.getContentById(contentId).subscribe(success => { 
+          this.publication.content = this.convertToImage(success.data);
+      },error => {
+          console.log(error);
+      }); 
     });
 
   }
@@ -111,4 +122,15 @@ export class PublicationsPage implements OnInit {
     );
   }
   
+  convertToImage(buffer){
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+  }
+
+
 }

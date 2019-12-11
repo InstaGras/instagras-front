@@ -27,7 +27,7 @@
           </ion-button>
         </ion-buttons>
       </div>
-      <img class="post-content" [src]="publication.content">
+      <img class="post-content" src="data:image/JPEG;base64,{{publication.content}}">
       <ion-buttons slot="start">
         <ion-button *ngIf="!publication.liked">
           <ion-icon slot="icon-only" name="heart-empty" color="dark"></ion-icon>
