@@ -79,6 +79,11 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  openPost(uidPost: number) {
+    console.log('try open the post number ' + uidPost);
+    this.router.navigate(['publications/' + uidPost]);
+  }
+
   logout(): void {
     this.keycloakService.logout();
   }

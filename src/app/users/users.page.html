@@ -68,6 +68,7 @@
         class="profile-media"
         *ngFor="let img of imagesList"
         src="data:image/JPEG;base64,{{img}}"
+        (click)="openPost(media.id)"
       />
     </div>
   </div>

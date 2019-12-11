@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title text-center>Publication de {{publication.user.username}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed"> <!--(ionRefresh)="doRefresh($event)"-->
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="feed-container">
+    <div class="post">
+      <div class="post-header">
+        <ion-avatar>
+          <img [src]="publication.user.avatar"/>
+        </ion-avatar>
+        <h1 class="post-header-username">
+          {{publication.user.username}}
+        </h1>
+        <ion-buttons>
+          <ion-button>
+            <ion-icon slot="icon-only" name="more" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <img class="post-content" [src]="publication.content">
+      <ion-buttons slot="start">
+        <ion-button *ngIf="!publication.liked">
+          <ion-icon slot="icon-only" name="heart-empty" color="dark"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="publication.liked">
+          <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
+        </ion-button>
+        <ion-button>
+          <ion-icon slot="icon-only" name="text" color="dark"></ion-icon>
+        </ion-button>
+        <ion-button>
+          <ion-icon slot="icon-only" name="paper-plane" color="dark"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <small class="post-like-text">
+          Aimé par users
+      </small>
+      <p class="post-description">
+        {{publication.description}}
+      </p>
+    </div>
+   
+      <ion-item>
+        <ion-label position="floating">Commentaire</ion-label>
+        <ion-input [(ngModel)]="commentaire" type="text"></ion-input>
+      </ion-item>
+
+      <button (click)="addCommentaire(commentaire)">Commenter</button>
+   
+
+    <div class="comments" >
+      <div class="comment" *ngFor="let comment of comments">
+        <ion-avatar>
+          <img [src]="publication.user.avatar"/>
+        </ion-avatar>
+        <div class="comment-text">
+          <p>
+            <span>{{comment.username}}</span>
+            {{comment.contenu}}
+          </p>
+          <div class="comment-text-infos">
+            <small>
+              Posté le {{comment.date_creation}}
+            </small>
+          </div>
+        </div>
+        <ion-buttons slot="start">
+          <ion-button (click)="deleteComment(comment.id)" *ngIf="comment.username == this.keycloakUserProfile.username">
+            <ion-icon slot="icon-only" name="trash" color="dark"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>  
+    </div>
+  </div>
+</ion-content>

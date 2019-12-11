@@ -1,0 +1,91 @@
+.feed-container {
+    max-width: 736px;
+    margin: auto;
+}
+
+.post {
+    border-bottom: whitesmoke solid 1px;
+    margin-bottom: 10px;
+}
+.post .post-header {
+    display: flex;
+    margin: 10px 0px 10px 0px;
+}
+
+.post .post-header ion-avatar {
+    margin: 0px 30px 0px 10px;
+}
+
+.post .post-header .post-header-username {
+    flex: 1 1 30px;
+    align-self: center;
+    margin: unset;
+}
+
+.post .post-content {
+    width: 100%;
+}
+
+.post-like-text, .post-description {
+    margin-left: 10px;
+}
+
+.post-description, .post-header-username, .post .post-header ion-avatar, .post .post-content {
+    cursor: pointer;
+}
+
+.send-message {
+    display: flex;
+    margin: 0px 10px 15px 10px;
+}
+
+.send-message ion-textarea {
+    flex: 1 1 auto;
+    border: lightgrey solid 1px;
+    border-radius: 18px;
+    padding-left: 8px;
+    margin-right: 8px;
+}
+
+.comments {
+    margin: 0px 10px 0px 10px;
+}
+
+.comments .comment {
+    display: flex;
+}
+
+.comments .comment ion-avatar{
+    margin-right: 15px;
+    height: 55px;
+    width: 55px;
+}
+
+.comments .comment .comment-text {
+    flex: 1 0;
+}
+
+.comments .comment .comment-text p {
+    margin-top: 0px;
+}
+
+.comments .comment .comment-text p span {
+    margin-top: 0px;
+    font-weight: bolder;
+}
+
+.comments .comment .comment-text .comment-text-infos {
+    display: flex;
+}
+
+.comments .comment .comment-text .comment-text-infos > * {
+    margin-right: 20px;
+}
+
+.comments .comment ion-buttons ion-button {
+    width: 42px;
+}
+
+.comments .comment {
+    margin-bottom: 10px;
+}

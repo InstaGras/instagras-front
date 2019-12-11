@@ -48,7 +48,7 @@
             </li>
         </ul>
           <div class="profile-medias">
-              <img class="profile-media" *ngFor="let img of imagesList" src="data:image/JPEG;base64,{{img}}">
+              <img class="profile-media" *ngFor="let img of imagesList" src="data:image/JPEG;base64,{{img}}" (click)="openPost(media.id)">
           </div>
 
           <ion-title text-center *ngIf="nbPublications==0">Aucune publication</ion-title>
