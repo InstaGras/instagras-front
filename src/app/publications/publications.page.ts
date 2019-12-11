@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommentairedataService } from '../services/commentairesdata.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ContentdataService } from '../services/contentdata.service';
+import { LikeService } from '../services/like.service';
 
 @Component({
   selector: 'app-publications',
@@ -26,18 +27,16 @@ export class PublicationsPage implements OnInit {
       username: '',
       avatar: 'assets/profile-photo.jpg'
     },
-    liked: true,
-    likeCount: 3,
+    liked: false,
+    likeCount: 0,
     content: '',
     description: 'oui'
    };
 
    public href: string = "";
-   public publicationID: string;
-
    public idPublication;
-
    public comments;
+   likedPublication = true;
 
   constructor(
     private keycloakService: KeycloakService,
@@ -47,6 +46,8 @@ export class PublicationsPage implements OnInit {
     public formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private ContentDataService: ContentdataService,
+    private likeService: LikeService
+
     ) { }
 
   ngOnInit() {
@@ -54,7 +55,9 @@ export class PublicationsPage implements OnInit {
     
     this.idPublication = (this.activatedRoute.snapshot.paramMap.get('publication'));
     this.getPostInfo(this.idPublication);
-
+    this.getLikeCount(this.idPublication);
+    this.getLikeByCurrentUser();
+    
     this.getAllComments(this.idPublication);
   }
 
@@ -76,11 +79,56 @@ export class PublicationsPage implements OnInit {
 
   }
 
-  getLikeByCurrentUser(uidPost, username){
-    /**
-     * ajouter feature like
-     */
-    
+  async getLikeCount(idPublication) {
+    this.likeService.countLikePublication(idPublication)
+    .subscribe(
+      success => 
+      {
+        this.publication.likeCount = success.data
+      }
+    );
+  }
+
+  async getLikeByCurrentUser(){
+    const idPost = this.idPublication;
+
+    const username = this.keycloakUserProfile.username;
+    this.likeService.getLikeCurrentUser(idPost, username)
+    .subscribe(
+      success => {
+        this.publication.liked = success.data,
+        console.log(this.publication)
+      }
+      );
+  }
+
+  likePublication(value) {
+    this.likedPublication = value;
+    const username = this.keycloakUserProfile.username;
+    const publication = this.idPublication;
+    const data = { username, publication }
+    this.publication.liked = value;
+
+    this.likeService.addLikePublication(data);
+
+    if (value) {
+      this.publication.likeCount++;
+    } else {
+      this.publication.likeCount--;
+    }
+    /*
+    if (value === true ) {
+      this.LikeService.deleteLikePublication(data)
+      .subscribe(
+        success => console.log(success)
+      );
+    } else {
+      this.LikeService.addLikePublication(data)
+      .subscribe(
+        success => console.log(success)
+      );
+    }
+    */
   }
 
   async addCommentaire(contenuCommentaire) {
@@ -103,20 +151,15 @@ export class PublicationsPage implements OnInit {
     .subscribe(
       success => {
         this.comments = success.data;
-        console.log(this.comments);
       },
       err => console.log(err)
     );
   }
 
   async deleteComment(idComment) {
-
-    console.log(idComment);
-
     this.commentairesdataService.deleteComment(idComment)
     .subscribe(
       success => {
-        console.log(success)
         this.getAllComments(this.idPublication);
       }
     );

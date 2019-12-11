@@ -25,11 +25,22 @@ export class LikeService {
 
   public addLikePublication(data): Observable<any> {
       console.log(data);
+      console.log('add like');
       return this.httpClient.post<any>(likeBasePath, data, httpOptions);
   }
 
+  /*
   public deleteLikePublication(data) : Observable<any>{
     console.log(data);
       return this.httpClient.delete<any>(likeBasePath, data);
+  }
+*/
+
+  public countLikePublication(data): Observable<any>{
+    return this.httpClient.get<any>(likeBasePath + data, httpOptions);
+  }
+
+  public getLikeCurrentUser(idPost, username): Observable<any>{
+    return this.httpClient.get<any>(likeBasePath + 'getLikeUser/'+ idPost +'/' + username, httpOptions);
   }
 }
