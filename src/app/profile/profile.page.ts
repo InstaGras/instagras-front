@@ -24,7 +24,6 @@ export class ProfilePage implements OnInit {
   nbFollowed: string;
   nbPublications: number;
   publicationsList: any[];
-  contentsList: any[];
   imagesList: any[];
 
 
@@ -97,7 +96,6 @@ export class ProfilePage implements OnInit {
 
   initPublications(){
     this.publicationsList=[];
-    this.contentsList=[];
     this.imagesList=[];
     this.PublicationDataService.getPublicationsByUsername(this.keycloakUserProfile.username)
     .subscribe(success => {
@@ -116,7 +114,6 @@ export class ProfilePage implements OnInit {
           publication.content_id="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
         }
         this.ContentDataService.getContentById(publication.content_id).subscribe(success => { 
-            this.contentsList.push(success.data);
             this.imagesList.push(this.convertToImage(success.data));
         },error => {
             console.log(error);

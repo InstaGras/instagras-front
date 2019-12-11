@@ -6,6 +6,7 @@ import { UserdataService } from '../services/userdata.service';
 import { User } from '../models/user';
 import { KeycloakService } from '../auth/keycloak.service';
 import { PublicationdataService } from '../services/publicationdata.service';
+import { ContentdataService } from '../services/contentdata.service';
 
 @Component({
   selector: 'app-users',
@@ -24,6 +25,8 @@ export class UsersPage implements OnInit {
   keycloakUserProfile: any;
   followersList: string[];
   publicationsList: any[];
+  imagesList: any[];
+
 
   constructor(
     private keycloakService: KeycloakService,
@@ -31,7 +34,8 @@ export class UsersPage implements OnInit {
     public popoverController: PopoverController,
     private UserDataService: UserdataService,
     private PublicationDataService: PublicationdataService,
-    private router: Router
+    private router: Router,
+    private ContentDataService: ContentdataService,
   ) { }
 
   ngOnInit() {
@@ -78,11 +82,13 @@ export class UsersPage implements OnInit {
     });  
   }
 
+
   initPublications(){
     this.publicationsList=[];
+    this.imagesList=[];
     this.PublicationDataService.getPublicationsByUsername(this.activatedRoute.snapshot.paramMap.get('username'))
     .subscribe(success => {
-      console.log(success);
+      //initialisation of publications lists
       success.data.publications.forEach(element => {
         const publication = {
           id: element.id,
@@ -92,9 +98,18 @@ export class UsersPage implements OnInit {
           content_id: element.content_id,
         };
         this.publicationsList.push(publication);
-      }
-      )
+        //initialisation of content list
+        if(publication.content_id==undefined ||publication.content_id==""||publication.content_id==null){
+          publication.content_id="5f5e6386-997b-4fdd-bb22-b57a5f7a755f";
+        }
+        this.ContentDataService.getContentById(publication.content_id).subscribe(success => { 
+            this.imagesList.push(this.convertToImage(success.data));
+        },error => {
+            console.log(error);
+        }); 
+      })
     this.nbPublications=this.publicationsList.length;
+    console.log(this.imagesList);
     },error => {
       console.log(error);
     });  
@@ -166,5 +181,15 @@ export class UsersPage implements OnInit {
       ).toLowerCase().trim();
       this.userIdentity = (userIdentity) ? userIdentity[0].toUpperCase() + userIdentity.slice(1) : 'Identité non saisie';
     }
+  }
+
+  convertToImage(buffer){
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
   }
 }
