@@ -16,7 +16,7 @@ export const environment = {
   basePublicationApiUrl: 'http://works.wtf/publicationws/',
   //  baseCommentairesApiUrl: 'http://localhost:3001/commentairesws',
   baseCommentairesApiUrl: 'http://works.wtf/commentairesws',
-  baseLikeApiUrl:'http://localhost:3000/likesws',
+  baseLikeApiUrl:'http://works.wtf/likesws',
 };
 
 /*

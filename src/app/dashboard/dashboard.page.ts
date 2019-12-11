@@ -29,7 +29,7 @@ export class DashboardPage implements OnInit {
     private router: Router,
     private publicationPage: PublicationsPage,
     private PublicationDataService: PublicationdataService,
-    private LikeService : LikeService
+    private likeService : LikeService
     ) {}
 
 
@@ -41,7 +41,6 @@ export class DashboardPage implements OnInit {
     this.initPublications();
   }
   
-
   scrollToTop() {
     this.ionContent.scrollToTop(300);
   }
@@ -72,7 +71,7 @@ export class DashboardPage implements OnInit {
     
     const data = { username, publication }
 
-    this.LikeService.addLikePublication(data)
+    this.likeService.addLikePublication(data)
     .subscribe(
       success => console.log(success)
     )
@@ -107,6 +106,8 @@ export class DashboardPage implements OnInit {
             description: element.description,
             creation_date: element.creation_date,
             content_id: element.content_id,
+//          likeCount: 
+//          likedByCurrentUser
           };
           this.publicationsList.push(publication);
         })
@@ -114,7 +115,6 @@ export class DashboardPage implements OnInit {
         console.log(error);
       })
     })
-    console.log(this.publicationsList);
     this.nbPublications=this.publicationsList.length;  
   },error=>{
     console.log(error);
@@ -126,6 +126,5 @@ doRefresh(event) {
     event.target.complete();
   }, 2000);
 }
-
 
 }

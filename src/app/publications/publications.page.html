@@ -29,10 +29,10 @@
       </div>
       <img class="post-content" [src]="publication.content">
       <ion-buttons slot="start">
-        <ion-button *ngIf="!publication.liked">
+        <ion-button (click)=likePublication(true) *ngIf="!publication.liked">
           <ion-icon slot="icon-only" name="heart-empty" color="dark"></ion-icon>
         </ion-button>
-        <ion-button *ngIf="publication.liked">
+        <ion-button (click)=likePublication(false) *ngIf="publication.liked">
           <ion-icon slot="icon-only" name="heart" color="dark"></ion-icon>
         </ion-button>
         <ion-button>
@@ -43,7 +43,7 @@
         </ion-button>
       </ion-buttons>
       <small class="post-like-text">
-          Aimé par users
+          Aimé par {{publication.likeCount}} personne(s)
       </small>
       <p class="post-description">
         {{publication.description}}
