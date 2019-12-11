@@ -15,6 +15,7 @@ import { ContentdataService } from '../services/contentdata.service';
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage implements OnInit {
+  [x: string]: any;
 
   keycloakUserProfile: any;
   user: User;
@@ -24,6 +25,8 @@ export class ProfilePage implements OnInit {
   nbPublications: number;
   publicationsList: any[];
   contentsList: any[];
+  imagesList: any[];
+
 
   constructor
   (
@@ -95,6 +98,7 @@ export class ProfilePage implements OnInit {
   initPublications(){
     this.publicationsList=[];
     this.contentsList=[];
+    this.imagesList=[];
     this.PublicationDataService.getPublicationsByUsername(this.keycloakUserProfile.username)
     .subscribe(success => {
       //initialisation of publications lists
@@ -113,15 +117,26 @@ export class ProfilePage implements OnInit {
         }
         this.ContentDataService.getContentById(publication.content_id).subscribe(success => { 
             this.contentsList.push(success.data);
+            this.imagesList.push(this.convertToImage(success.data));
         },error => {
             console.log(error);
         }); 
       })
     this.nbPublications=this.publicationsList.length;
-    console.log(this.contentsList);
+    console.log(this.imagesList);
     },error => {
       console.log(error);
     });  
+  }
+
+  convertToImage(buffer){
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+      binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
   }
 
 
